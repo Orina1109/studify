@@ -1,0 +1,300 @@
+:root {
+  /* Base font size for rem calculations */
+  font-size: 16px;
+}
+
+.login-page {
+  background-color: rgba(255, 229, 214, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: stretch;
+  min-height: 100vh;
+}
+
+.login-container {
+  align-self: center;
+  display: flex;
+  width: 100%;
+  max-width: 95rem;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 0;
+}
+
+.main-heading {
+  color: rgba(169, 81, 165, 1);
+  font-size: 9.375rem;
+  font-family: "ALS Hauss", -apple-system, Roboto, Helvetica, sans-serif;
+  font-weight: 700;
+  margin: 0;
+}
+
+.sub-heading {
+  color: rgba(169, 81, 165, 1);
+  font-size: 3.438rem;
+  font-family: "ALS Hauss", -apple-system, Roboto, Helvetica, sans-serif;
+  font-weight: 500;
+  margin-top: 1.8rem;
+  margin-left: 0.625rem;
+}
+
+.content-section {
+  align-self: stretch;
+  margin-top: 5.3rem;
+  margin-left: 0.625rem;
+  width: 100%;
+}
+
+.content-columns {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 55%;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 45%;
+  margin-left: 1.25rem;
+}
+
+.email-label {
+  color: rgba(169, 81, 165, 1);
+  font-size: 3rem;
+  font-family: "ALS Hauss", -apple-system, Roboto, Helvetica, sans-serif;
+  font-weight: 400;
+  margin-bottom: 0.625rem;
+}
+
+.email-input {
+  border-radius: 15px;
+  background-color: rgba(169, 81, 165, 1);
+  width: 100%;
+  height: 5.375rem;
+  border: none;
+  padding: 0 1.25rem;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.email-input:focus {
+  outline: none;
+}
+
+.continue-button {
+  border-radius: 89px;
+  background-color: rgba(169, 81, 165, 1);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-top: 1.063rem;
+  min-height: 4.688rem;
+  padding: 0.688rem 5.25rem 0.688rem 5.375rem;
+  font-family: "ALS Hauss", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 3rem;
+  color: rgba(255, 229, 214, 1);
+  font-weight: 500;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  width: 18.188rem;
+}
+
+.account-info {
+  color: rgba(169, 81, 165, 1);
+  font-size: 2.5rem;
+  font-family: "ALS Hauss", -apple-system, Roboto, Helvetica, sans-serif;
+  font-weight: 400;
+  margin-top: 5.3rem;
+  width: 37.188rem;
+  max-width: 100%;
+}
+
+.social-login {
+  display: flex;
+  margin-top: 5.625rem;
+  width: 27.875rem;
+  max-width: 100%;
+  align-items: stretch;
+  gap: 1.25rem;
+  justify-content: space-between;
+}
+
+.social-icon {
+  border-radius: 11px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.social-icon:first-child {
+  width: 11.313rem;
+  aspect-ratio: 3.13;
+}
+
+.social-icon:last-child {
+  width: 12rem;
+  aspect-ratio: 3.56;
+  align-self: flex-start;
+}
+
+.login-illustration {
+  aspect-ratio: 1.03;
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
+  margin-top: 5rem;
+}
+
+.login-footer {
+  background-color: rgba(255, 229, 214, 1);
+  display: flex;
+  width: 100%;
+  padding: 0;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: center;
+  font-family: "ALS Hauss", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 1);
+  font-weight: 400;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.footer-content {
+  display: flex;
+  margin-left: 0.625rem;
+  width: 100%;
+  max-width: 92.188rem;
+  align-items: stretch;
+  gap: 1.563rem;
+}
+
+.footer-year, .footer-copyright {
+  font-weight: 700;
+}
+
+.footer-copyright {
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 9.688rem;
+}
+
+.footer-email {
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 12.5rem;
+}
+
+.footer-privacy, .footer-policy {
+  text-align: center;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.footer-privacy {
+  width: 22.813rem;
+}
+
+.footer-policy {
+  width: 21.313rem;
+}
+
+/* Media Queries */
+@media (max-width: 991px) {
+  :root {
+    font-size: 14px;
+  }
+
+  .login-container {
+    max-width: 100%;
+    padding-top: 0;
+  }
+
+  .main-heading {
+    max-width: 100%;
+    font-size: 2.857rem;
+  }
+
+  .sub-heading {
+    font-size: 2.857rem;
+  }
+
+  .content-section {
+    max-width: 100%;
+    margin-top: 2.857rem;
+  }
+
+  .content-columns {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .left-column, .right-column {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .left-column {
+    margin-top: 2.857rem;
+  }
+
+  .email-label {
+    font-size: 2.857rem;
+  }
+
+  .continue-button {
+    font-size: 2.857rem;
+    padding-left: 1.429rem;
+    padding-right: 1.429rem;
+    white-space: initial;
+  }
+
+  .account-info {
+    max-width: 100%;
+    margin-top: 2.857rem;
+  }
+
+  .social-login {
+    margin-top: 2.857rem;
+  }
+
+  .login-illustration {
+    max-width: 100%;
+    margin-top: 2.857rem;
+  }
+
+  .login-footer {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* Additional responsive adjustments for very small screens */
+@media (max-width: 480px) {
+  :root {
+    font-size: 12px;
+  }
+
+  .footer-content {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-year, .footer-copyright {
+    margin-bottom: 1rem;
+  }
+
+  .continue-button {
+    width: 100%;
+    max-width: 18.188rem;
+  }
+}
