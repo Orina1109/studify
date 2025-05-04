@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
+import org.studify.model.ErrorResponse
 import org.studify.model.User
 import org.studify.service.UserService
 
@@ -17,20 +18,38 @@ class UserController(private val userService: UserService) {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    suspend fun getUserById(@PathVariable id: Long): ResponseEntity<User> {
+    suspend fun getUserById(@PathVariable id: Long): ResponseEntity<Any> {
         val user = userService.getUserById(id)
         return if (user != null) {
             ResponseEntity.ok(user)
         } else {
-            ResponseEntity.notFound().build()
+            val errorResponse = ErrorResponse(
+                message = "User not found with ID: $id",
+                code = "USER_NOT_FOUND"
+            )
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse)
         }
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    @ResponseStatus(HttpStatus.CREATED)
-    suspend fun createUser(@RequestBody user: User): User {
-        return userService.addUser(user)
+    suspend fun createUser(@RequestBody user: User): ResponseEntity<Any> {
+        return try {
+            val createdUser = userService.addUser(user)
+            ResponseEntity.status(HttpStatus.CREATED).body(createdUser)
+        } catch (e: IllegalArgumentException) {
+            val errorResponse = ErrorResponse(
+                message = e.message ?: "Invalid user data",
+                code = "INVALID_USER_DATA"
+            )
+            ResponseEntity.badRequest().body(errorResponse)
+        } catch (e: Exception) {
+            val errorResponse = ErrorResponse(
+                message = "An unexpected error occurred while creating user: ${e.message}",
+                code = "USER_CREATION_ERROR"
+            )
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse)
+        }
     }
 
     @PutMapping("/{id}")
@@ -38,23 +57,31 @@ class UserController(private val userService: UserService) {
     suspend fun updateUser(
         @PathVariable id: Long,
         @RequestBody user: User
-    ): ResponseEntity<User> {
+    ): ResponseEntity<Any> {
         val updatedUser = userService.updateUser(id, user)
         return if (updatedUser != null) {
             ResponseEntity.ok(updatedUser)
         } else {
-            ResponseEntity.notFound().build()
+            val errorResponse = ErrorResponse(
+                message = "Failed to update user. User not found with ID: $id",
+                code = "USER_UPDATE_FAILED"
+            )
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse)
         }
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    suspend fun deleteUser(@PathVariable id: Long): ResponseEntity<Unit> {
+    suspend fun deleteUser(@PathVariable id: Long): ResponseEntity<Any> {
         val deleted = userService.deleteUser(id)
         return if (deleted) {
             ResponseEntity.noContent().build()
         } else {
-            ResponseEntity.notFound().build()
+            val errorResponse = ErrorResponse(
+                message = "Failed to delete user. User not found with ID: $id",
+                code = "USER_DELETE_FAILED"
+            )
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse)
         }
     }
 }

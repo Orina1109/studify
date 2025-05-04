@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.studify.model.AuthRequest
 import org.studify.model.AuthResponse
+import org.studify.model.ErrorResponse
 import org.studify.model.RegistrationRequest
 import org.studify.security.AuthService
 
@@ -13,20 +14,28 @@ import org.studify.security.AuthService
 class AuthController(private val authService: AuthService) {
 
     @PostMapping("/login")
-    suspend fun login(@RequestBody authRequest: AuthRequest): ResponseEntity<AuthResponse> {
+    suspend fun login(@RequestBody authRequest: AuthRequest): ResponseEntity<Any> {
         val authResponse = authService.authenticate(authRequest)
 
         return if (authResponse != null) {
             ResponseEntity.ok(authResponse)
         } else {
-            ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+            val errorResponse = ErrorResponse(
+                message = "Authentication failed. Invalid username or password.",
+                code = "AUTH_FAILED"
+            )
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse)
         }
     }
 
     @PostMapping("/logout")
-    suspend fun logout(@RequestHeader("Authorization") authHeader: String?): ResponseEntity<Unit> {
+    suspend fun logout(@RequestHeader("Authorization") authHeader: String?): ResponseEntity<Any> {
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.badRequest().build()
+            val errorResponse = ErrorResponse(
+                message = "Invalid authorization header. Header must be in format 'Bearer {token}'.",
+                code = "INVALID_AUTH_HEADER"
+            )
+            return ResponseEntity.badRequest().body(errorResponse)
         }
 
         val token = authHeader.substring(7) // Remove "Bearer " prefix
@@ -38,17 +47,25 @@ class AuthController(private val authService: AuthService) {
     /**
      * Register a new user
      * @param registrationRequest The registration request containing user details
-     * @return The newly created user with a JWT token
+     * @return The newly created user with a JWT token or an error response
      */
     @PostMapping("/register")
-    suspend fun register(@RequestBody registrationRequest: RegistrationRequest): ResponseEntity<AuthResponse> {
+    suspend fun register(@RequestBody registrationRequest: RegistrationRequest): ResponseEntity<Any> {
         return try {
             val authResponse = authService.register(registrationRequest)
             ResponseEntity.status(HttpStatus.CREATED).body(authResponse)
         } catch (e: IllegalArgumentException) {
-            ResponseEntity.badRequest().build()
+            val errorResponse = ErrorResponse(
+                message = e.message ?: "Invalid registration request",
+                code = "INVALID_REGISTRATION"
+            )
+            ResponseEntity.badRequest().body(errorResponse)
         } catch (e: Exception) {
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
+            val errorResponse = ErrorResponse(
+                message = "An unexpected error occurred during registration: ${e.message}",
+                code = "REGISTRATION_ERROR"
+            )
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse)
         }
     }
 }

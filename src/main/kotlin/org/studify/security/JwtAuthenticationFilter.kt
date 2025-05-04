@@ -10,7 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
-import org.studify.model.User
 
 @Component
 class JwtAuthenticationFilter(private val authService: AuthService) : OncePerRequestFilter() {
