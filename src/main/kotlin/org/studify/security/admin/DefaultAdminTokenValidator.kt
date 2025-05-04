@@ -1,44 +1,62 @@
 package org.studify.security.admin
 
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
+import org.studify.model.AdminToken
+import org.studify.repository.AdminTokenRepository
 
 /**
- * Default implementation of AdminTokenValidator that validates against a predefined token value
- * This is a placeholder implementation for testing that doesn't actually store used tokens
+ * Implementation of AdminTokenValidator that validates tokens against the database
+ * and tracks used tokens
  */
 @Component
-class DefaultAdminTokenValidator(
-    @Value("\${admin.registration.token}") private val adminToken: String
+class AdminTokenValidatorImpl(
+    private val adminTokenRepository: AdminTokenRepository
 ) : AdminTokenValidator {
 
     /**
-     * Validates if the provided token matches the predefined admin token
+     * Validates if the provided token exists in the database and has not been used
      * @param token The token to validate
-     * @return True if the token matches the predefined admin token, false otherwise
+     * @return True if the token exists in the database and has not been used, false otherwise
      */
+    @Transactional(readOnly = true)
     override fun validateToken(token: String): Boolean {
-        return token == adminToken
+        val adminToken = adminTokenRepository.findByToken(token) ?: return false
+        return !adminToken.used
     }
 
     /**
      * Checks if a token has been used for admin registration
-     * This is a placeholder implementation that always returns false
      * @param token The token to check
-     * @return Always false as this implementation doesn't track token usage
+     * @return True if the token has been used, false otherwise
      */
+    @Transactional(readOnly = true)
     override fun isTokenUsed(token: String): Boolean {
-        // Placeholder implementation that doesn't track token usage
-        return false
+        val adminToken = adminTokenRepository.findByToken(token) ?: return false
+        return adminToken.used
     }
 
     /**
-     * Marks a token as used for admin registration
-     * This is a placeholder implementation that doesn't actually store the token
+     * Marks a token as used for admin registration by storing it in the database
      * @param token The token to mark as used
      */
+    @Transactional
     override fun markTokenAsUsed(token: String) {
-        // Placeholder implementation that doesn't store tokens
-        // No operation needed
+        // Check if token already exists
+        val existingToken = adminTokenRepository.findByToken(token)
+
+        if (existingToken == null) {
+            // Create and save new token with used=true
+            val adminToken = AdminToken(
+                token = token,
+                used = true
+            )
+            adminTokenRepository.save(adminToken)
+        } else if (!existingToken.used) {
+            // If token exists but not used, update it
+            // Since AdminToken is immutable (data class), we need to create a new instance
+            val updatedToken = existingToken.copy(used = true)
+            adminTokenRepository.save(updatedToken)
+        }
     }
 }
