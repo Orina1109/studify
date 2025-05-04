@@ -29,6 +29,7 @@ class SecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFilte
                 authorize
                     // Public endpoints
                     .requestMatchers("/api/auth/login").permitAll()
+                    .requestMatchers("/api/auth/register").permitAll()
                     .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                     // Admin-only endpoints

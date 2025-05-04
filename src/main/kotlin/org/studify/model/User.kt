@@ -13,9 +13,9 @@ data class User(
     val username: String,
     val passwordHash: String,
     val role: UserRole,
-    val firstName: String,
-    val lastName: String,
     val email: String,
+    val firstName: String? = null,
+    val lastName: String? = null,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val lastLogin: LocalDateTime? = null
 )
@@ -28,4 +28,14 @@ data class AuthRequest(
 data class AuthResponse(
     val token: String,
     val user: User
+)
+
+data class RegistrationRequest(
+    val username: String,
+    val passwordHash: String,
+    val email: String,
+    val role: UserRole,
+    val firstName: String? = null,
+    val lastName: String? = null,
+    val adminToken: String? = null
 )
