@@ -86,3 +86,56 @@ Key configuration options:
 ```bash
 ./gradlew test
 ```
+
+## Docker
+
+### Building the Docker Image
+
+```bash
+docker build -t studify-api .
+```
+
+### Running the Application with Docker
+
+```bash
+docker run -p 8080:8080 studify-api
+```
+
+### Environment Variables
+
+You can configure the application using environment variables:
+
+```bash
+docker run -p 8080:8080 \
+  -e SPRING_PROFILES_ACTIVE=prod \
+  -e SERVER_PORT=8080 \
+  -e JWT_EXPIRATION=86400 \
+  -e JWT_ISSUER=studify-api \
+  -e ADMIN_REGISTRATION_TOKEN=your-secure-token \
+  studify-api
+```
+
+### Docker Compose
+
+Create a `docker-compose.yml` file:
+
+```yaml
+version: '3.8'
+services:
+  studify-api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SERVER_PORT=8080
+      - JWT_EXPIRATION=86400
+      - JWT_ISSUER=studify-api
+      - ADMIN_REGISTRATION_TOKEN=your-secure-token
+```
+
+Run with Docker Compose:
+
+```bash
+docker-compose up
+```
