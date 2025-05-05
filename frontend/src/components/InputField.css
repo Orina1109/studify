@@ -1,0 +1,46 @@
+.input-field-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.input-field-label {
+  color: rgba(169, 81, 165, 1);
+  font-size: 1.5rem;
+  font-family: "ALS Hauss", -apple-system, Roboto, Helvetica, sans-serif;
+  font-weight: 400;
+  margin-bottom: 0.625rem;
+}
+
+.input-field {
+  border-radius: 15px;
+  background-color: rgba(169, 81, 165, 1);
+  height: 2.6875rem;
+  border: none;
+  padding: 0 1rem;
+  color: white;
+  font-size: 0.9rem;
+  max-width: 25rem;
+  width: 100%;
+}
+
+.input-field:focus {
+  outline: none;
+}
+
+@media (max-width: 991px) {
+  .input-field-label {
+    font-size: 1.2rem;
+  }
+
+  .input-field {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .input-field {
+    height: 2.5rem;
+  }
+}

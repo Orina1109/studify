@@ -2,25 +2,25 @@ import React from 'react';
 import './Button.css';
 
 interface ButtonProps {
-  text: string;
+  type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
-  type?: 'primary' | 'secondary' | 'danger';
-  disabled?: boolean;
+  children: React.ReactNode;
+  className?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({ 
-  text, 
+  type = 'button', 
   onClick, 
-  type = 'primary', 
-  disabled = false 
+  children, 
+  className = '' 
 }) => {
   return (
-    <button 
-      className={`button ${type}`} 
-      onClick={onClick} 
-      disabled={disabled}
+    <button
+      type={type}
+      onClick={onClick}
+      className={`custom-button ${className}`}
     >
-      {text}
+      {children}
     </button>
   );
 };
