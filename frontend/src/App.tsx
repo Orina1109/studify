@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 // Simple placeholder components
 const Home = () => <div className="fullscreen-page">Welcome to Studify</div>;
-const Register = () => <div className="fullscreen-page">Register Page</div>;
 const ForgotPassword = () => <div className="fullscreen-page">Forgot Password Page</div>;
 const NotFound = () => <div className="fullscreen-page">Page Not Found</div>;
 
@@ -31,7 +31,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
