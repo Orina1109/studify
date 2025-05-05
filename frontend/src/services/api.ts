@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// Create a default axios instance with baseUrl set to localhost:8080
+// Create a default axios instance with baseUrl set to the current origin
 const api = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: '',  // Empty string makes requests relative to the current origin
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
