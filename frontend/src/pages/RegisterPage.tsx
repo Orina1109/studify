@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
+import imgStudent from "../assets/register-student.png";
+import imgTeacher from "../assets/register-teacher.png";
+import imgBack from "../assets/register-back.png";
 
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
@@ -21,16 +24,16 @@ const RegisterPage: React.FC = () => {
         <div className="header-section">
           <h1 className="main-title">Find my tutor</h1>
           <button className="back-button" onClick={handleGoBack}>
-            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c97029a100caec3b0a0af85d26f148e9ded7e29d?placeholderIfAbsent=true" alt="Go back" className="back-icon" />
+            <img src={imgBack} alt="Go back" className="back-icon" />
           </button>
         </div>
         <h2 className="subtitle">Языковая практика на одной волне.</h2>
         <div className="images-container">
           <div className="image-column">
-            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/d0fd4eaa4ff9128e4f0a297cb30e675562c95f5e?placeholderIfAbsent=true" alt="Tutor" className="tutor-image" />
+            <img src={imgTeacher} alt="Tutor" className="tutor-image" />
           </div>
           <div className="image-column">
-            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d000685a8ae3098e2255f4c8590099ec3560512?placeholderIfAbsent=true" alt="Student" className="student-image" />
+            <img src={imgStudent} alt="Student" className="student-image" />
           </div>
         </div>
         <div className="options-container">
