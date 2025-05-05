@@ -31,13 +31,17 @@ class AuthService(
 
     /**
      * Authenticate a user and generate a JWT token
+     * @return AuthResponse if authentication is successful, null otherwise
+     * @throws UserNotFoundException if the user does not exist
+     * @throws InvalidCredentialsException if the password is incorrect
      */
     suspend fun authenticate(authRequest: AuthRequest): AuthResponse? {
-        val user = userService.getUserByUsername(authRequest.username) ?: return null
+        val user = userService.getUserByUsername(authRequest.username) 
+            ?: throw UserNotFoundException("User with username ${authRequest.username} not found")
 
         // Verify password hash
         if (user.passwordHash != authRequest.passwordHash) {
-            return null
+            throw InvalidCredentialsException("Invalid password for user ${authRequest.username}")
         }
 
         // Update last login time
@@ -50,6 +54,9 @@ class AuthService(
 
         return AuthResponse(token, user)
     }
+
+    class UserNotFoundException(message: String) : Exception(message)
+    class InvalidCredentialsException(message: String) : Exception(message)
 
     /**
      * Validate a token and return the associated user

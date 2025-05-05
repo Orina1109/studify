@@ -1,0 +1,39 @@
+import axios from 'axios';
+
+// Create a default axios instance with baseUrl set to localhost:8080
+const api = axios.create({
+  baseURL: 'http://localhost:8080',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  },
+  timeout: 10000 // 10 seconds timeout
+});
+
+// Add request interceptor for logging or token handling if needed
+api.interceptors.request.use(
+  (config) => {
+    // You can add auth token here if needed
+    // const token = getCookie('authToken');
+    // if (token) {
+    //   config.headers.Authorization = `Bearer ${token}`;
+    // }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Add response interceptor for error handling
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    console.error('API Error:', error);
+    return Promise.reject(error);
+  }
+);
+
+export default api;

@@ -15,16 +15,27 @@ class AuthController(private val authService: AuthService) {
 
     @PostMapping("/login")
     suspend fun login(@RequestBody authRequest: AuthRequest): ResponseEntity<Any> {
-        val authResponse = authService.authenticate(authRequest)
-
-        return if (authResponse != null) {
+        return try {
+            val authResponse = authService.authenticate(authRequest)
             ResponseEntity.ok(authResponse)
-        } else {
+        } catch (e: AuthService.UserNotFoundException) {
             val errorResponse = ErrorResponse(
-                message = "Authentication failed. Invalid username or password.",
-                code = "AUTH_FAILED"
+                message = "User does not exist.",
+                code = "USER_NOT_EXISTS"
             )
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse)
+        } catch (e: AuthService.InvalidCredentialsException) {
+            val errorResponse = ErrorResponse(
+                message = "Authentication failed. Invalid password.",
+                code = "WRONG_CREDENTIALS"
+            )
+            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse)
+        } catch (e: Exception) {
+            val errorResponse = ErrorResponse(
+                message = "An unexpected error occurred during authentication: ${e.message}",
+                code = "AUTH_ERROR"
+            )
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse)
         }
     }
 
