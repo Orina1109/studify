@@ -65,8 +65,11 @@ const LoginPage: React.FC = () => {
       // Store token in cookies
       document.cookie = `authToken=${response.data.token}; path=/; max-age=86400`;
 
-      // Redirect to home page or dashboard
+      // Redirect to home page
       console.log('Login successful:', response.data);
+
+      // Navigate to the root page
+      navigate('/');
 
       // Reset loading state
       setIsLoading(false);

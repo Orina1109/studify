@@ -52,8 +52,8 @@ const RegisterPage: React.FC = () => {
 
       console.log('Registration successful:', response.data);
 
-      // Navigate to the appropriate page
-      navigate(`/${role}/plan`);
+      // Navigate to the root page
+      navigate('/');
     } catch (error: any) {
       console.error('Registration error:', error);
       setError('Failed to register. Please try again.');
