@@ -111,7 +111,7 @@ const RegisterPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <footer className="footer">
+      <footer className="register-footer">
         <div className="footer-content">
           <div className="footer-year">2025</div>
           <div className="footer-copyright">©FindMyTutor</div>
