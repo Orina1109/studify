@@ -54,6 +54,9 @@ data class StudentQuestion(
     val name: String,
     val age: String,
 
+    @Column(columnDefinition = "TEXT")
+    val photoData: String? = null,
+
     @Enumerated(EnumType.STRING)
     val gender: Gender,
 

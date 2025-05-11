@@ -7,6 +7,7 @@ const TeacherQuestionPage: React.FC = () => {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [language, setLanguage] = useState("");
+  const [photoData, setPhotoData] = useState<string | null>(null);
   const [languageLevel, setLanguageLevel] = useState("");
   const [timezone, setTimezone] = useState("");
   const [teachingGoals, setTeachingGoals] = useState<string[]>([]);
@@ -95,6 +96,25 @@ const TeacherQuestionPage: React.FC = () => {
 
   const handleHomeworkApproachSelect = (approach: string) => {
     setHomeworkApproach(approach);
+  };
+
+  const handlePhotoSelect = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files[0]) {
+        const file = target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const result = e.target?.result as string;
+          setPhotoData(result);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
   };
 
   const handleSubmit = async () => {
@@ -261,6 +281,7 @@ const TeacherQuestionPage: React.FC = () => {
       const response = await api.post('/api/questions/teacher', {
         name,
         age,
+        photoData,
         gender: mapGender(gender),
         language: mapLanguage(language),
         languageLevel: mapLanguageLevel(languageLevel),
@@ -327,7 +348,11 @@ const TeacherQuestionPage: React.FC = () => {
             <div className="teacher-question-label">
               Добавить фото или видео
             </div>
-            <div className="teacher-question-photo-upload"></div>
+            <div 
+              className="teacher-question-photo-upload" 
+              onClick={handlePhotoSelect}
+              style={photoData ? { backgroundImage: `url(${photoData})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}
+            ></div>
           </div>
         </div>
 

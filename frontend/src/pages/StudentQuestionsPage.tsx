@@ -7,6 +7,7 @@ const StudentQuestionsPage: React.FC = () => {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [language, setLanguage] = useState("");
+  const [photoData, setPhotoData] = useState<string | null>(null);
   const [level, setLevel] = useState("");
   const [goals, setGoals] = useState<string[]>([]);
   const [frequency, setFrequency] = useState("");
@@ -36,6 +37,25 @@ const StudentQuestionsPage: React.FC = () => {
     } else if (interests.length < 5 || interest === "+") {
       setInterests([...interests, interest]);
     }
+  };
+
+  const handlePhotoSelect = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files[0]) {
+        const file = target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const result = e.target?.result as string;
+          setPhotoData(result);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
   };
 
   const handleSubmit = async () => {
@@ -201,6 +221,7 @@ const StudentQuestionsPage: React.FC = () => {
       const response = await api.post('/api/questions/student', {
         name,
         age,
+        photoData,
         gender: mapGender(gender),
         language: mapLanguage(language),
         level: mapLevel(level),
@@ -251,7 +272,11 @@ const StudentQuestionsPage: React.FC = () => {
             <label className="student-questions-label">
               Добавьте фото
             </label>
-            <div className="student-questions-photo-circle"></div>
+            <div 
+              className="student-questions-photo-circle" 
+              onClick={handlePhotoSelect}
+              style={photoData ? { backgroundImage: `url(${photoData})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}
+            ></div>
           </div>
         </div>
 

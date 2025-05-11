@@ -3,6 +3,7 @@ package org.studify.model
 data class TeacherQuestionRequest(
     val name: String,
     val age: String,
+    val photoData: String? = null,
     val gender: Gender,
     val language: Language,
     val languageLevel: TeacherLanguageLevel,
@@ -27,6 +28,7 @@ data class TeacherQuestionResponse(
     val userId: Long,
     val name: String,
     val age: String,
+    val photoData: String? = null,
     val gender: Gender,
     val language: Language,
     val languageLevel: TeacherLanguageLevel,
@@ -50,6 +52,7 @@ data class TeacherQuestionResponse(
 data class StudentQuestionRequest(
     val name: String,
     val age: String,
+    val photoData: String? = null,
     val gender: Gender,
     val language: Language,
     val level: StudentLanguageLevel,
@@ -73,6 +76,7 @@ data class StudentQuestionResponse(
     val userId: Long,
     val name: String,
     val age: String,
+    val photoData: String? = null,
     val gender: Gender,
     val language: Language,
     val level: StudentLanguageLevel,
