@@ -1,6 +1,5 @@
 package org.studify.model
 
-// Teacher Question DTOs
 data class TeacherQuestionRequest(
     val name: String,
     val age: String,
@@ -8,14 +7,14 @@ data class TeacherQuestionRequest(
     val language: Language,
     val languageLevel: TeacherLanguageLevel,
     val timezone: String,
-    val teachingGoals: List<String>,
+    val teachingGoals: List<Goal>,
     val minStudentLevel: StudentLanguageLevel,
     val maxStudentLevel: StudentLanguageLevel,
-    val interests: List<String>,
+    val interests: List<Interest>,
     val teachingFrequency: TeachingFrequency,
     val lessonDuration: LessonDuration,
     val preferredTime: PreferredTime,
-    val lessonPrice: String,
+    val lessonPrice: Budget,
     val teachingStyle: TeachingStyle,
     val feedbackStyle: FeedbackStyle,
     val teachingMethod: TeachingMethod,
@@ -32,14 +31,14 @@ data class TeacherQuestionResponse(
     val language: Language,
     val languageLevel: TeacherLanguageLevel,
     val timezone: String,
-    val teachingGoals: List<String>,
+    val teachingGoals: List<Goal>,
     val minStudentLevel: StudentLanguageLevel,
     val maxStudentLevel: StudentLanguageLevel,
-    val interests: List<String>,
+    val interests: List<Interest>,
     val teachingFrequency: TeachingFrequency,
     val lessonDuration: LessonDuration,
     val preferredTime: PreferredTime,
-    val lessonPrice: String,
+    val lessonPrice: Budget,
     val teachingStyle: TeachingStyle,
     val feedbackStyle: FeedbackStyle,
     val teachingMethod: TeachingMethod,
@@ -48,14 +47,13 @@ data class TeacherQuestionResponse(
     val createdAt: String
 )
 
-// Student Question DTOs
 data class StudentQuestionRequest(
     val name: String,
     val age: String,
     val gender: Gender,
     val language: Language,
     val level: StudentLanguageLevel,
-    val goals: List<String>,
+    val goals: List<Goal>,
     val frequency: Frequency,
     val duration: LessonDuration,
     val timezone: String,
@@ -65,7 +63,7 @@ data class StudentQuestionRequest(
     val feedbackPreference: FeedbackPreference,
     val criticismResponse: CriticismResponse,
     val lessonFormat: LessonFormat,
-    val interests: List<String>,
+    val interests: List<Interest>,
     val learningStyle: LearningStyle,
     val homeworkAttitude: HomeworkAttitude
 )
@@ -78,7 +76,7 @@ data class StudentQuestionResponse(
     val gender: Gender,
     val language: Language,
     val level: StudentLanguageLevel,
-    val goals: List<String>,
+    val goals: List<Goal>,
     val frequency: Frequency,
     val duration: LessonDuration,
     val timezone: String,
@@ -88,7 +86,7 @@ data class StudentQuestionResponse(
     val feedbackPreference: FeedbackPreference,
     val criticismResponse: CriticismResponse,
     val lessonFormat: LessonFormat,
-    val interests: List<String>,
+    val interests: List<Interest>,
     val learningStyle: LearningStyle,
     val homeworkAttitude: HomeworkAttitude,
     val createdAt: String

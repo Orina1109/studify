@@ -40,25 +40,183 @@ const StudentQuestionsPage: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
+      // Map UI values to backend enum values
+      const mapGender = (value: string) => {
+        switch (value) {
+          case "Мужской": return "MALE";
+          case "Женский": return "FEMALE";
+          case "Неважно": return "ANY";
+          default: return value;
+        }
+      };
+
+      const mapLanguage = (value: string) => {
+        switch (value) {
+          case "Английский": return "ENGLISH";
+          case "Немецкий": return "GERMAN";
+          case "Французский": return "FRENCH";
+          case "Японский": return "JAPANESE";
+          case "Китайский": return "CHINESE";
+          case "Русский": return "RUSSIAN";
+          default: return value;
+        }
+      };
+
+      const mapLevel = (value: string) => {
+        switch (value) {
+          case "А1": return "A1";
+          case "А2": return "A2";
+          case "В1": return "B1";
+          case "В2": return "B2";
+          case "С1": return "C1";
+          case "С2": return "C2";
+          case "unknown": return "UNKNOWN";
+          default: return value;
+        }
+      };
+
+      const mapFrequency = (value: string) => {
+        switch (value) {
+          case "once": return "ONCE_A_WEEK";
+          case "twice": return "TWO_TO_THREE_TIMES_A_WEEK";
+          case "daily": return "DAILY";
+          case "flexible": return "FLEXIBLE";
+          default: return value;
+        }
+      };
+
+      const mapDuration = (value: string) => {
+        switch (value) {
+          case "30": return "THIRTY_MINUTES";
+          case "45": return "FORTY_FIVE_MINUTES";
+          case "90": return "NINETY_MINUTES";
+          case "any": return "ANY";
+          default: return value;
+        }
+      };
+
+      const mapPreferredTime = (value: string) => {
+        switch (value) {
+          case "morning": return "MORNING";
+          case "day": return "DAY";
+          case "evening": return "EVENING";
+          case "any": return "ANY";
+          default: return value;
+        }
+      };
+
+      const mapBudget = (value: string) => {
+        switch (value) {
+          case "low": return "LOW";
+          case "medium": return "MEDIUM";
+          case "high": return "HIGH";
+          default: return value;
+        }
+      };
+
+      const mapCommunicationStyle = (value: string) => {
+        switch (value) {
+          case "friendly": return "FRIENDLY_AND_SUPPORTIVE";
+          case "strict": return "STRICT_AND_STRUCTURED";
+          case "neutral": return "NEUTRAL_BUT_PROFESSIONAL";
+          default: return value;
+        }
+      };
+
+      const mapFeedbackPreference = (value: string) => {
+        switch (value) {
+          case "verbal": return "VERBAL";
+          case "written": return "WRITTEN";
+          case "tests": return "TESTS";
+          case "any": return "ANY";
+          default: return value;
+        }
+      };
+
+      const mapCriticismResponse = (value: string) => {
+        switch (value) {
+          case "detailed": return "DETAILED_ERROR_ANALYSIS";
+          case "constructive": return "CONSTRUCTIVE_ONLY";
+          case "minimal": return "MINIMAL";
+          default: return value;
+        }
+      };
+
+      const mapLessonFormat = (value: string) => {
+        switch (value) {
+          case "structured": return "STRUCTURED";
+          case "conversation": return "CONVERSATION";
+          case "mixed": return "MIXED";
+          default: return value;
+        }
+      };
+
+      const mapLearningStyle = (value: string) => {
+        switch (value) {
+          case "visual": return "VISUAL";
+          case "audio": return "AUDIO";
+          case "practice": return "PRACTICE";
+          default: return value;
+        }
+      };
+
+      const mapHomeworkAttitude = (value: string) => {
+        switch (value) {
+          case "love": return "LOVE";
+          case "neutral": return "NEUTRAL";
+          case "dislike": return "DISLIKE";
+          default: return value;
+        }
+      };
+
+      const mapGoal = (value: string) => {
+        switch (value) {
+          case "exams": return "EXAM_PREPARATION";
+          case "business": return "BUSINESS_ENGLISH";
+          case "conversation": return "CONVERSATION_PRACTICE";
+          case "travel": return "TRAVEL_EMIGRATION";
+          case "career": return "CAREER";
+          default: return value;
+        }
+      };
+
+      const mapInterest = (value: string) => {
+        switch (value) {
+          case "movies": return "MOVIES";
+          case "series": return "SERIES";
+          case "music": return "MUSIC";
+          case "books": return "BOOKS";
+          case "art": return "ART";
+          case "tech": return "TECHNOLOGY";
+          case "sports": return "SPORTS";
+          case "politics": return "POLITICS";
+          case "economics": return "ECONOMICS";
+          case "travel": return "TRAVEL";
+          case "science": return "SCIENCE";
+          case "+": return "OTHER";
+          default: return value;
+        }
+      };
+
       const response = await api.post('/api/questions/student', {
         name,
         age,
-        gender,
-        language,
-        level,
-        goals,
-        frequency,
-        duration,
+        gender: mapGender(gender),
+        language: mapLanguage(language),
+        level: mapLevel(level),
+        goals: goals.map(goal => mapGoal(goal)),
+        frequency: mapFrequency(frequency),
+        duration: mapDuration(duration),
         timezone,
-        preferredTime,
-        budget,
-        communicationStyle,
-        feedbackPreference,
-        criticismResponse,
-        lessonFormat,
-        interests,
-        learningStyle,
-        homeworkAttitude,
+        preferredTime: mapPreferredTime(preferredTime),
+        budget: mapBudget(budget),
+        communicationStyle: mapCommunicationStyle(communicationStyle),
+        feedbackPreference: mapFeedbackPreference(feedbackPreference),
+        criticismResponse: mapCriticismResponse(criticismResponse),
+        lessonFormat: mapLessonFormat(lessonFormat),
+        interests: interests.map(interest => mapInterest(interest)),
+        learningStyle: mapLearningStyle(learningStyle),
+        homeworkAttitude: mapHomeworkAttitude(homeworkAttitude),
       });
 
       console.log('Student question submitted successfully:', response.data);
@@ -105,7 +263,11 @@ const StudentQuestionsPage: React.FC = () => {
               className="student-questions-input"
               placeholder="Введите возраст"
               value={age}
-              onChange={(e) => setAge(e.target.value)}
+              onChange={(e) => {
+                // Allow only digits
+                const value = e.target.value.replace(/\D/g, '');
+                setAge(value);
+              }}
             />
           </div>
 

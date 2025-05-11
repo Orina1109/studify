@@ -59,6 +59,14 @@ enum class HomeworkApproach {
     ALWAYS_ASSIGN, RARELY_ASSIGN, NEVER_ASSIGN
 }
 
+enum class Interest {
+    MOVIES, SERIES, MUSIC, BOOKS, ART, TECHNOLOGY, SPORTS, POLITICS, ECONOMICS, TRAVEL, SCIENCE, OTHER
+}
+
+enum class Goal {
+    EXAM_PREPARATION, BUSINESS_ENGLISH, CONVERSATION_PRACTICE, TRAVEL_EMIGRATION, CAREER
+}
+
 @Entity
 @Table(name = "teacher_questions")
 data class TeacherQuestion(
@@ -87,7 +95,8 @@ data class TeacherQuestion(
     @ElementCollection
     @CollectionTable(name = "teacher_teaching_goals", joinColumns = [JoinColumn(name = "teacher_question_id")])
     @Column(name = "goal")
-    val teachingGoals: List<String>,
+    @Enumerated(EnumType.STRING)
+    val teachingGoals: List<Goal>,
 
     @Enumerated(EnumType.STRING)
     val minStudentLevel: StudentLanguageLevel,
@@ -98,7 +107,8 @@ data class TeacherQuestion(
     @ElementCollection
     @CollectionTable(name = "teacher_interests", joinColumns = [JoinColumn(name = "teacher_question_id")])
     @Column(name = "interest")
-    val interests: List<String>,
+    @Enumerated(EnumType.STRING)
+    val interests: List<Interest>,
 
     @Enumerated(EnumType.STRING)
     val teachingFrequency: TeachingFrequency,
@@ -109,7 +119,8 @@ data class TeacherQuestion(
     @Enumerated(EnumType.STRING)
     val preferredTime: PreferredTime,
 
-    val lessonPrice: String,
+    @Enumerated(EnumType.STRING)
+    val lessonPrice: Budget,
 
     @Enumerated(EnumType.STRING)
     val teachingStyle: TeachingStyle,

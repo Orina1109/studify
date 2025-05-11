@@ -99,26 +99,185 @@ const TeacherQuestionPage: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
+      // Map UI values to backend enum values
+      const mapGender = (value: string) => {
+        switch (value) {
+          case "Мужской": return "MALE";
+          case "Женский": return "FEMALE";
+          case "Неважно": return "ANY";
+          default: return value;
+        }
+      };
+
+      const mapLanguage = (value: string) => {
+        switch (value) {
+          case "Английский": return "ENGLISH";
+          case "Немецкий": return "GERMAN";
+          case "Французский": return "FRENCH";
+          case "Японский": return "JAPANESE";
+          case "Китайский": return "CHINESE";
+          case "Русский": return "RUSSIAN";
+          default: return value;
+        }
+      };
+
+      const mapLanguageLevel = (value: string) => {
+        switch (value) {
+          case "В2": return "B2";
+          case "С1": return "C1";
+          case "С2": return "C2";
+          case "Носитель": return "NATIVE";
+          default: return value;
+        }
+      };
+
+      const mapStudentLevel = (value: string) => {
+        switch (value) {
+          case "А1": return "A1";
+          case "А2": return "A2";
+          case "В1": return "B1";
+          case "В2": return "B2";
+          case "С1": return "C1";
+          case "С2": return "C2";
+          default: return value;
+        }
+      };
+
+      const mapTeachingFrequency = (value: string) => {
+        switch (value) {
+          case "1 раз в неделю": return "ONCE_A_WEEK";
+          case "2-3 раза в неделю": return "TWO_TO_THREE_TIMES_A_WEEK";
+          case "Каждый день": return "DAILY";
+          case "Гибкий график": return "FLEXIBLE";
+          default: return value;
+        }
+      };
+
+      const mapLessonDuration = (value: string) => {
+        switch (value) {
+          case "30 минут": return "THIRTY_MINUTES";
+          case "45 минут": return "FORTY_FIVE_MINUTES";
+          case "90 минут": return "NINETY_MINUTES";
+          case "Неважно": return "ANY";
+          default: return value;
+        }
+      };
+
+      const mapPreferredTime = (value: string) => {
+        switch (value) {
+          case "Утро": return "MORNING";
+          case "День": return "DAY";
+          case "Вечер": return "EVENING";
+          case "Неважно": return "ANY";
+          default: return value;
+        }
+      };
+
+      const mapTeachingStyle = (value: string) => {
+        switch (value) {
+          case "Дружелюбный и поддерживающий": return "FRIENDLY_AND_SUPPORTIVE";
+          case "Строгий и структурированный": return "STRICT_AND_STRUCTURED";
+          case "Нейтральный, но профессиональный": return "NEUTRAL_BUT_PROFESSIONAL";
+          default: return value;
+        }
+      };
+
+      const mapFeedbackStyle = (value: string) => {
+        switch (value) {
+          case "Устно": return "VERBAL";
+          case "Письменно": return "WRITTEN";
+          case "В виде тестов": return "TESTS";
+          case "Видеоразбор": return "VIDEO_REVIEW";
+          default: return value;
+        }
+      };
+
+      const mapTeachingMethod = (value: string) => {
+        switch (value) {
+          case "Визуальный": return "VISUAL";
+          case "Аудиальный": return "AUDIO";
+          case "Кинестетический": return "KINESTHETIC";
+          default: return value;
+        }
+      };
+
+      const mapExplanationStyle = (value: string) => {
+        switch (value) {
+          case "Через примеры": return "THROUGH_EXAMPLES";
+          case "Через теорию": return "THROUGH_THEORY";
+          case "Через практику": return "THROUGH_PRACTICE";
+          case "Комбинированный подход": return "COMBINED_APPROACH";
+          default: return value;
+        }
+      };
+
+      const mapHomeworkApproach = (value: string) => {
+        switch (value) {
+          case "Задаю всегда": return "ALWAYS_ASSIGN";
+          case "Задаю редко": return "RARELY_ASSIGN";
+          case "Не задаю": return "NEVER_ASSIGN";
+          default: return value;
+        }
+      };
+
+      const mapLessonPrice = (value: string) => {
+        switch (value) {
+          case "До 1000 руб.": return "LOW";
+          case "1000–2000 руб.": return "MEDIUM";
+          case "Более 2000 руб.": return "HIGH";
+          default: return value;
+        }
+      };
+
+      const mapTeachingGoal = (value: string) => {
+        switch (value) {
+          case "Подготовка к экзаменам": return "EXAM_PREPARATION";
+          case "Бизнес-английский": return "BUSINESS_ENGLISH";
+          case "Разговорная практика": return "CONVERSATION_PRACTICE";
+          case "Путешествия и эмиграция": return "TRAVEL_EMIGRATION";
+          case "Для работы / карьеры": return "CAREER";
+          default: return value;
+        }
+      };
+
+      const mapInterest = (value: string) => {
+        switch (value) {
+          case "Кино": return "MOVIES";
+          case "Сериалы": return "SERIES";
+          case "Музыка": return "MUSIC";
+          case "Книги": return "BOOKS";
+          case "Искусство": return "ART";
+          case "Технологии": return "TECHNOLOGY";
+          case "Спорт": return "SPORTS";
+          case "Политика": return "POLITICS";
+          case "Экономика": return "ECONOMICS";
+          case "Путешествия": return "TRAVEL";
+          case "Наука": return "SCIENCE";
+          case "+": return "OTHER";
+          default: return value;
+        }
+      };
+
       const response = await api.post('/api/questions/teacher', {
         name,
         age,
-        gender,
-        language,
-        languageLevel,
+        gender: mapGender(gender),
+        language: mapLanguage(language),
+        languageLevel: mapLanguageLevel(languageLevel),
         timezone,
-        teachingGoals,
-        minStudentLevel,
-        maxStudentLevel,
-        interests,
-        teachingFrequency,
-        lessonDuration,
-        preferredTime,
-        lessonPrice,
-        teachingStyle,
-        feedbackStyle,
-        teachingMethod,
-        explanationStyle,
-        homeworkApproach,
+        teachingGoals: teachingGoals.map(goal => mapTeachingGoal(goal)),
+        minStudentLevel: mapStudentLevel(minStudentLevel),
+        maxStudentLevel: mapStudentLevel(maxStudentLevel),
+        interests: interests.map(interest => mapInterest(interest)),
+        teachingFrequency: mapTeachingFrequency(teachingFrequency),
+        lessonDuration: mapLessonDuration(lessonDuration),
+        preferredTime: mapPreferredTime(preferredTime),
+        lessonPrice: mapLessonPrice(lessonPrice),
+        teachingStyle: mapTeachingStyle(teachingStyle),
+        feedbackStyle: mapFeedbackStyle(feedbackStyle),
+        teachingMethod: mapTeachingMethod(teachingMethod),
+        explanationStyle: mapExplanationStyle(explanationStyle),
+        homeworkApproach: mapHomeworkApproach(homeworkApproach),
       });
 
       console.log('Teacher question submitted successfully:', response.data);
@@ -156,7 +315,11 @@ const TeacherQuestionPage: React.FC = () => {
                     placeholder="Введите возраст"
                     className="teacher-question-input"
                     value={age}
-                    onChange={(e) => setAge(e.target.value)}
+                    onChange={(e) => {
+                      // Allow only digits
+                      const value = e.target.value.replace(/\D/g, '');
+                      setAge(value);
+                    }}
                 />
             </div>
           </div>

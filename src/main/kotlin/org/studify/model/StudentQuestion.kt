@@ -3,8 +3,6 @@ package org.studify.model
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
-// Reusing enums from TeacherQuestion.kt:
-// Gender, Language, LessonDuration, PreferredTime
 
 enum class StudentLanguageLevel {
     A1, A2, B1, B2, C1, C2, UNKNOWN
@@ -68,7 +66,8 @@ data class StudentQuestion(
     @ElementCollection
     @CollectionTable(name = "student_goals", joinColumns = [JoinColumn(name = "student_question_id")])
     @Column(name = "goal")
-    val goals: List<String>,
+    @Enumerated(EnumType.STRING)
+    val goals: List<Goal>,
 
     @Enumerated(EnumType.STRING)
     val frequency: Frequency,
@@ -99,7 +98,8 @@ data class StudentQuestion(
     @ElementCollection
     @CollectionTable(name = "student_interests", joinColumns = [JoinColumn(name = "student_question_id")])
     @Column(name = "interest")
-    val interests: List<String>,
+    @Enumerated(EnumType.STRING)
+    val interests: List<Interest>,
 
     @Enumerated(EnumType.STRING)
     val learningStyle: LearningStyle,

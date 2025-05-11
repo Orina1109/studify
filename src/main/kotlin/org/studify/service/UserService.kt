@@ -11,7 +11,6 @@ import java.time.LocalDateTime
 @Service
 class UserService(private val userRepository: UserRepository) {
 
-    // Initialize with some sample users if the database is empty
     @PostConstruct
     fun initializeUsers() {
         if (userRepository.count() > 0) {
@@ -20,7 +19,7 @@ class UserService(private val userRepository: UserRepository) {
 
         val student = User(
             username = "student",
-            passwordHash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", // "password" hashed with SHA-256
+            passwordHash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
             role = UserRole.STUDENT,
             firstName = "John",
             lastName = "Doe",
@@ -29,7 +28,7 @@ class UserService(private val userRepository: UserRepository) {
 
         val teacher = User(
             username = "teacher",
-            passwordHash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", // "password" hashed with SHA-256
+            passwordHash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
             role = UserRole.TEACHER,
             firstName = "Jane",
             lastName = "Smith",
@@ -38,14 +37,13 @@ class UserService(private val userRepository: UserRepository) {
 
         val admin = User(
             username = "admin",
-            passwordHash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", // "password" hashed with SHA-256
+            passwordHash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
             role = UserRole.ADMIN,
             firstName = "Admin",
             lastName = "User",
             email = "admin@example.com"
         )
 
-        // Add sample users
         userRepository.save(student)
         userRepository.save(teacher)
         userRepository.save(admin)
@@ -62,7 +60,6 @@ class UserService(private val userRepository: UserRepository) {
 
     @Transactional
     suspend fun addUser(user: User): User {
-        // Check if username already exists
         if (userRepository.existsByUsername(user.username)) {
             throw IllegalArgumentException("Username ${user.username} already exists")
         }
@@ -74,12 +71,10 @@ class UserService(private val userRepository: UserRepository) {
     suspend fun updateUser(id: Long, user: User): User? {
         val existingUser = userRepository.findById(id).orElse(null) ?: return null
 
-        // If username is changing, check if the new username already exists
         if (existingUser.username != user.username && userRepository.existsByUsername(user.username)) {
             throw IllegalArgumentException("Username ${user.username} already exists")
         }
 
-        // Create a new user with the updated fields but keep the same ID
         val updatedUser = user.copy(id = id)
         return userRepository.save(updatedUser)
     }

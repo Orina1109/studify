@@ -52,8 +52,7 @@ class QuestionController(
         )
 
         val savedQuestion = teacherQuestionRepository.save(teacherQuestion)
-        
-        // Update user's filledQuestions status if needed
+
         if (!user.filledQuestions) {
             userService.updateFilledQuestionsStatus(user.id!!, true)
         }
@@ -92,8 +91,7 @@ class QuestionController(
         )
 
         val savedQuestion = studentQuestionRepository.save(studentQuestion)
-        
-        // Update user's filledQuestions status if needed
+
         if (!user.filledQuestions) {
             userService.updateFilledQuestionsStatus(user.id!!, true)
         }
