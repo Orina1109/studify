@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import LandingPage from './pages/LandingPage';
 import StudentQuestionsPage from './pages/StudentQuestionsPage';
 import TeacherQuestionPage from './pages/TeacherQuestionPage';
+import ProfilePage from './pages/ProfilePage';
 import api from './services/api';
 
 // Simple placeholder components
@@ -32,8 +33,11 @@ const Home = () => {
     .then(response => {
       const user = response.data;
       // Check filledQuestions flag
-      if (!user.filledQuestions) {
-        // Redirect based on user role
+      if (user.filledQuestions) {
+        // If user has filled questions, redirect to the profile page
+        navigate('/profile');
+      } else {
+        // Redirect based on a user role
         if (user.role === 'STUDENT') {
           navigate('/student-questions');
         } else if (user.role === 'TEACHER') {
@@ -43,7 +47,7 @@ const Home = () => {
     })
     .catch(error => {
       console.error('Error fetching user profile:', error);
-      // On error, redirect to landing page
+      // On error, redirect to the landing page
       navigate('/land');
     });
   }, [navigate]);
@@ -56,7 +60,7 @@ function App() {
     return localStorage.getItem('isLoggedIn') === 'true';
   });
 
-  // Effect to listen for storage events (in case login state changes in another tab)
+  // Effect to listen for storage events (in case the login state changes in another tab)
   useEffect(() => {
     const handleStorageChange = () => {
       setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
@@ -78,6 +82,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/student-questions" element={<StudentQuestionsPage />} />
         <Route path="/teacher-questions" element={<TeacherQuestionPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
