@@ -3,6 +3,7 @@ package org.studify.controller
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 import org.studify.model.ErrorResponse
 import org.studify.model.User
@@ -80,6 +81,23 @@ class UserController(private val userService: UserService) {
             val errorResponse = ErrorResponse(
                 message = "Failed to delete user. User not found with ID: $id",
                 code = "USER_DELETE_FAILED"
+            )
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse)
+        }
+    }
+
+    @GetMapping("/profile")
+    suspend fun getUserProfile(): ResponseEntity<Any> {
+        val authentication = SecurityContextHolder.getContext().authentication
+        val username = authentication.name
+
+        val user = userService.getUserByUsername(username)
+        return if (user != null) {
+            ResponseEntity.ok(user)
+        } else {
+            val errorResponse = ErrorResponse(
+                message = "User profile not found",
+                code = "PROFILE_NOT_FOUND"
             )
             ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse)
         }

@@ -42,7 +42,9 @@ class JwtAuthenticationFilter(private val authService: AuthService) : OncePerReq
                 )
 
                 // Set authentication in context
-                SecurityContextHolder.getContext().authentication = authentication
+                val context = SecurityContextHolder.createEmptyContext()
+                context.authentication = authentication
+                SecurityContextHolder.setContext(context)
             }
         } catch (e: Exception) {
             // In case of any error, clear security context

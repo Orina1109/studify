@@ -3,17 +3,24 @@ package org.studify.security
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
+
 @Configuration
 @EnableWebSecurity(debug = true)
+@EnableMethodSecurity(prePostEnabled = true)
 class SecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFilter) {
 
     @Bean
@@ -30,13 +37,24 @@ class SecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFilte
     }
 
     @Bean
+    fun passwordEncoder(): PasswordEncoder {
+        return BCryptPasswordEncoder()
+    }
+
+
+    @Bean
+    fun authenticationManager(authenticationConfiguration: AuthenticationConfiguration): AuthenticationManager? {
+        return authenticationConfiguration.getAuthenticationManager()
+    }
+
+
+    @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             // Disable CSRF for REST API
-            .csrf { it.disable() }
 
             // Enable CORS
-            .cors { it.configurationSource(corsConfigurationSource()) }
+            .cors { it.disable() }
 
             // Configure session management to stateless
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
@@ -44,27 +62,17 @@ class SecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFilte
             // Configure authorization rules
             .authorizeHttpRequests { authorize ->
                 authorize
-                    // Public endpoints
                     .requestMatchers("/api/auth/login").permitAll()
                     .requestMatchers("/api/auth/register").permitAll()
-                    .requestMatchers("/api/auth/logout").permitAll()
+                    .requestMatchers("/error").permitAll()
                     .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                    // Admin-only endpoints
-                    .requestMatchers("/api/admin/**").hasRole("ADMIN")
-
-                    // Teacher endpoints
-                    .requestMatchers("/api/teachers/**").hasAnyRole("TEACHER", "ADMIN")
-
-                    // Student endpoints
-                    .requestMatchers("/api/students/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
-
-                    // All other endpoints require authentication
-                    .anyRequest().authenticated()
+                    .anyRequest().permitAll()
             }
+            .csrf { it.disable() }
+            .anonymous { it.disable() }
 
             // Add JWT filter before UsernamePasswordAuthenticationFilter
-            .addFilterAfter(jwtAuthenticationFilter, BasicAuthenticationFilter::class.java)
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()
     }

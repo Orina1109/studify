@@ -35,7 +35,10 @@ data class User(
     @Column(nullable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
-    val lastLogin: LocalDateTime? = null
+    val lastLogin: LocalDateTime? = null,
+
+    @Column(nullable = false)
+    val filledQuestions: Boolean = false
 )
 
 data class AuthRequest(
