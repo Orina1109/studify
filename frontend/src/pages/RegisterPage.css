@@ -42,9 +42,7 @@
   background-color: rgba(255, 229, 214, 1);
   align-self: end;
   display: flex;
-  margin-top: 2.3125rem;
-  height: 7.375rem;
-  padding: 0 1.0625rem 0 1.125rem;
+  height: auto;
   align-items: center;
   gap: 0.625rem;
   justify-content: center;

@@ -55,25 +55,22 @@ const ProfilePage: React.FC = () => {
           <div className="calendar-month">Сентябрь, 2026</div>
           <div className="calendar-grid">
             <div className="calendar-week">
-              <div className="calendar-day"></div>
-              <div className="calendar-day"></div>
-              <div className="calendar-day"></div>
-              <div className="calendar-day"></div>
-              <div className="calendar-day"></div>
-              <div className="calendar-day"></div>
-              <div className="calendar-day"></div>
+              <div className="calendar-day disabled">1</div>
+              <div className="calendar-day">2</div>
+              <div className="calendar-day">3</div>
+              <div className="calendar-day">4</div>
+              <div className="calendar-day">5</div>
+              <div className="calendar-day">6</div>
+              <div className="calendar-day">7</div>
             </div>
-            <div className="calendar-week second-week">
-              <div className="calendar-day"></div>
-              <div className="calendar-day"></div>
-              <div className="calendar-day"></div>
-              <div className="calendar-day"></div>
-              <div className="calendar-day"></div>
-              <div className="calendar-day-container">
-                <div className="calendar-day"></div>
-                <div className="calendar-day-indicator"></div>
-              </div>
-              <div className="calendar-day"></div>
+            <div className="calendar-week">
+              <div className="calendar-day">8</div>
+              <div className="calendar-day">9</div>
+              <div className="calendar-day">10</div>
+              <div className="calendar-day">11</div>
+              <div className="calendar-day current-day">12</div>
+              <div className="calendar-day">13</div>
+              <div className="calendar-day">14</div>
             </div>
             <div className="calendar-week">
               <div className="calendar-day"></div>
@@ -93,25 +90,28 @@ const ProfilePage: React.FC = () => {
               <div className="calendar-day"></div>
               <div className="calendar-day"></div>
             </div>
-            <div className="calendar-week last-week">
+            <div className="calendar-week">
+              <div className="calendar-day"></div>
+              <div className="calendar-day"></div>
+              <div className="calendar-day"></div>
+              <div className="calendar-day"></div>
+              <div className="calendar-day"></div>
               <div className="calendar-day"></div>
               <div className="calendar-day"></div>
             </div>
           </div>
         </div>
       </div>
-      <div className="footer">
-        <div className="footer-left">
-          <div className="footer-item bold">2025</div>
-          <div className="footer-item bold">©FindMyTutor</div>
-          <div className="footer-item">О нас</div>
+      <footer className="profile-footer">
+        <div className="footer-content">
+          <div className="footer-year">2025</div>
+          <div className="footer-copyright">©FindMyTutor</div>
+          <div className="footer-about">О нас</div>
+          <div className="footer-email">FindMy@Tutor.com</div>
+          <div className="footer-privacy">Обработка персональных данных</div>
+          <div className="footer-policy">Политика конфиденциальности</div>
         </div>
-        <div className="footer-right">
-          <div className="footer-item">FindMy@Tutor.com</div>
-          <div className="footer-item">Обработка персональных данных</div>
-          <div className="footer-item">Политика конфиденциальности</div>
-        </div>
-      </div>
+      </footer>
     </div>
   );
 };
