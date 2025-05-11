@@ -5,6 +5,7 @@ import './LoginPage.css';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
 import loginIllustration from '../assets/login-illustration.png';
+import api from '../services/api';
 
 // SHA-256 hash function
 async function sha256(message: string): Promise<string> {
@@ -48,19 +49,13 @@ const LoginPage: React.FC = () => {
       // Make API call to login endpoint
       console.log('Sending login request with:', { username, passwordHash: passwordHash.substring(0, 10) + '...' });
 
-      // Create a JSON string manually
-      const jsonData = JSON.stringify({
+      // Create request data object
+      const requestData = {
         username,
         passwordHash
-      });
+      };
 
-      const response = await axios.post('/api/auth/login', jsonData, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        timeout: 10000 // 10 seconds timeout
-      });
+      const response = await api.post('/api/auth/login', requestData);
 
       // Store token in cookies
       document.cookie = `authToken=${response.data.token}; path=/; max-age=86400`;
