@@ -2,6 +2,7 @@ package org.studify.controller
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 import org.studify.model.AuthRequest
 import org.studify.model.AuthResponse
@@ -52,6 +53,7 @@ class AuthController(private val authService: AuthService) {
         val token = authHeader.substring(7) // Remove "Bearer " prefix
         authService.invalidateToken(token)
 
+        SecurityContextHolder.clearContext()
         return ResponseEntity.ok().build()
     }
 
