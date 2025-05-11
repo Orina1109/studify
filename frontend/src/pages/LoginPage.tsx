@@ -49,13 +49,13 @@ const LoginPage: React.FC = () => {
       // Make API call to login endpoint
       console.log('Sending login request with:', { username, passwordHash: passwordHash.substring(0, 10) + '...' });
 
-      // Create request data object
-      const requestData = {
+      // Create a JSON string manually
+      const jsonData = {
         username,
         passwordHash
       };
 
-      const response = await api.post('/api/auth/login', requestData);
+      const response = await api.post('/api/auth/login', jsonData);
 
       // Store token in cookies
       document.cookie = `authToken=${response.data.token}; path=/; max-age=86400`;
