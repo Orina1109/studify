@@ -5,82 +5,85 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px;
+  padding: 1.5rem;
 }
 
 .student-questions-content {
+  max-width: 80%;
   width: 100%;
-  max-width: 1549px;
   background-color: #ffe5d6;
-  border-radius: 10px;
-  padding: 40px;
+  border-radius: 0.625rem;
+  padding: 2.5rem;
 }
 
 .student-questions-title {
+  text-align: center;
   color: #a951a5;
-  font-size: 150px;
+  font-size: 3.375rem;
   font-weight: 700;
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
 }
 
 .student-questions-section-title {
+  text-align: center;
   color: #a951a5;
-  font-size: 55px;
+  font-size: 2.0rem;
   font-weight: 500;
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
 }
 
 .student-questions-info-row {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 40px;
-  margin-bottom: 60px;
+  gap: 2.5rem;
+  margin-bottom: 3.75rem;
 }
 
 .student-questions-input-group {
   display: flex;
   flex-direction: column;
-  width: 509px;
+  width: 20.8rem;
 }
 
 .student-questions-photo-group {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 584px;
 }
 
 .student-questions-label {
   color: #a951a5;
-  font-size: 40px;
+  font-size: 1.5rem;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 0.938rem;
 }
 
 .student-questions-input {
   color: rgba(169, 81, 165, 0.62);
-  font-size: 32px;
-  border: 2px solid #a951a5;
-  border-radius: 15px;
-  padding: 18px;
-  height: 74px;
+  font-size: 1rem;
+  border: 0.125rem solid #a951a5;
+  border-radius: 0.8rem;
+  padding: 0.8rem;
+  height: 1.625rem;
   background-color: transparent;
-  width: 100%;
 }
 
 .student-questions-photo-circle {
-  width: 292px;
-  height: 292px;
-  border: 2px solid #a951a5;
-  border-radius: 400px;
+  width: 9.25rem;
+  height: 9.25rem;
+  border: 0.125rem solid #a951a5;
+  border-radius: 25rem;
 }
 
 .student-questions-form-section {
   display: flex;
+  align-items: center;
   flex-direction: column;
+  justify-content: center;
   width: 100%;
-  gap: 40px;
-  margin-bottom: 60px;
+  gap: 2.5rem;
+  margin-bottom: 3.75rem;
 }
 
 .student-questions-full-width {
@@ -93,16 +96,17 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 72px;
+  row-gap: 1.0rem;
+  column-gap: 2.0rem;
 }
 
 .student-questions-option {
   color: #a951a5;
-  font-size: 32px;
-  width: 250px;
-  height: 74px;
-  border: 2px solid #a951a5;
-  border-radius: 15px;
+  font-size: 1rem;
+  width: 10.625rem;
+  height: 2.625rem;
+  border: 0.125rem solid #a951a5;
+  border-radius: 0.938rem;
   background-color: transparent;
   cursor: pointer;
   display: flex;
@@ -112,11 +116,11 @@
 
 .student-questions-level-option {
   color: #a951a5;
-  font-size: 32px;
-  width: 150px;
-  height: 74px;
-  border: 2px solid #a951a5;
-  border-radius: 15px;
+  font-size: 1rem;
+  width: 5.375rem;
+  height: 3.0rem;
+  border: 0.125rem solid #a951a5;
+  border-radius: 0.938rem;
   background-color: transparent;
   cursor: pointer;
   display: flex;
@@ -126,12 +130,12 @@
 
 .student-questions-unknown-level {
   color: #a951a5;
-  font-size: 32px;
-  width: 572px;
-  height: 74px;
-  border: 2px solid #a951a5;
-  border-radius: 15px;
-  margin-top: 40px;
+  font-size: 1rem;
+  width: 25.75rem;
+  height: 3.0rem;
+  border: 0.125rem solid #a951a5;
+  border-radius: 0.938rem;
+  margin-top: 1rem;
   margin-left: auto;
   margin-right: auto;
   background-color: transparent;
@@ -157,360 +161,211 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 60px;
+  margin-top: 2.75rem;
 }
 
 .student-questions-goal-option {
   color: #a951a5;
-  font-size: 32px;
+  font-size: 1rem;
   text-align: center;
-  width: 439px;
-  height: 110px;
-  border: 2px solid #a951a5;
-  border-radius: 15px;
+  width: 15.44rem;
+  height: auto;
+  border: 0.125rem solid #a951a5;
+  border-radius: 0.938rem;
   background-color: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 0.625rem;
 }
 
 .student-questions-frequency-option,
 .student-questions-duration-option,
 .student-questions-time-option {
   color: #a951a5;
-  font-size: 32px;
-  width: 350px;
-  height: 70px;
-  border: 2px solid #a951a5;
-  border-radius: 15px;
+  font-size: 1rem;
+  width: 15.875rem;
+  height: auto;
+  border: 0.125rem solid #a951a5;
+  border-radius: 0.938rem;
   background-color: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0.625rem;
 }
 
 .student-questions-timezone-select {
   color: rgba(169, 81, 165, 0.62);
-  font-size: 32px;
-  width: 584px;
-  height: 74px;
-  border: 2px solid #a951a5;
-  border-radius: 15px;
+  font-size: 1rem;
+  width: 20.5rem;
+  height: auto;
+  border: 0.125rem solid #a951a5;
+  border-radius: 0.938rem;
   margin-left: auto;
   margin-right: auto;
   background-color: transparent;
-  padding: 0 18px;
+  padding: 0.625rem;
 }
 
 .student-questions-budget-option {
   color: #a951a5;
-  font-size: 32px;
-  width: 290px;
-  height: 75px;
-  border: 2px solid #a951a5;
-  border-radius: 15px;
+  font-size: 1rem;
+  width: 15.125rem;
+  height: auto;
+  border: 0.125rem solid #a951a5;
+  border-radius: 0.938rem;
   background-color: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0.625rem;
 }
 
 .student-questions-communication-option,
 .student-questions-feedback-option,
 .student-questions-criticism-option {
   color: #a951a5;
-  font-size: 32px;
+  font-size: 1rem;
   text-align: center;
-  width: 630px;
-  height: 75px;
-  border: 2px solid #a951a5;
-  border-radius: 15px;
+  width: 25.375rem;
+  height: auto;
+  border: 0.125rem solid #a951a5;
+  border-radius: 0.938rem;
   background-color: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0.625rem;
 }
 
 .student-questions-format-option {
   color: #a951a5;
-  font-size: 32px;
+  font-size: 1rem;
   text-align: center;
-  width: 700px;
-  height: 75px;
-  border: 2px solid #a951a5;
-  border-radius: 15px;
+  width: 25.75rem;
+  height: auto;
+  border: 0.125rem solid #a951a5;
+  border-radius: 0.938rem;
   background-color: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0.625rem;
 }
 
 .student-questions-interests-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 40px;
+  column-gap: 2rem;
+  row-gap: 1rem;
 }
 
 .student-questions-interest-option {
   color: #a951a5;
-  font-size: 32px;
-  width: 300px;
-  height: 75px;
-  border: 2px solid #a951a5;
-  border-radius: 15px;
+  font-size: 1rem;
+  width: 9.75rem;
+  height: auto;
+  border: 0.125rem solid #a951a5;
+  border-radius: 0.938rem;
   background-color: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0.625rem;
 }
 
 .student-questions-learning-option,
 .student-questions-homework-option {
   color: #a951a5;
-  font-size: 32px;
+  font-size: 1rem;
   text-align: center;
-  width: 630px;
-  height: 75px;
-  border: 2px solid #a951a5;
-  border-radius: 15px;
+  width: 25.375rem;
+  height: auto;
+  border: 0.125rem solid #a951a5;
+  border-radius: 0.938rem;
   background-color: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0.625rem;
 }
 
 .student-questions-completion-message {
   color: #a951a5;
-  font-size: 55px;
+  font-size: 2.438rem;
   font-weight: 500;
-  margin-top: 60px;
-  margin-bottom: 40px;
+  margin-top: 2.75rem;
+  margin-bottom: 2.5rem;
   text-align: center;
 }
 
 .student-questions-submit-container {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
-  margin-bottom: 60px;
+  margin-top: 2.5rem;
+  margin-bottom: 3.75rem;
 }
 
 .student-questions-submit-button {
   background-color: #a951a5;
   color: #ffe5d6;
-  font-size: 48px;
+  font-size: 2rem;
   font-weight: 500;
-  padding: 46px 86px;
-  border-radius: 89px;
+  min-width: 25rem;
+  padding: 1.875rem 2.375rem;
+  border-radius: 2.563rem;
   border: none;
   cursor: pointer;
 }
 
 .student-questions-footer {
   display: flex;
-  justify-content: center;
+  width: 100%;
+  padding: 1rem 0;
+  flex-direction: column;
+  overflow: hidden;
   align-items: center;
-  gap: 25px;
-  padding: 24px 0;
-  font-size: 24px;
-  color: #ffe5d6;
+  font-family: "ALS Hauss", -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 1);
+  font-weight: 400;
+  justify-content: center;
+  margin-top: auto;
 }
 
-.student-questions-footer-item {
-  color: #ffe5d6;
+.footer-content {
+  display: flex;
+  width: 100%;
+  max-width: 46.094rem;
+  align-items: stretch;
+  gap: 0.78125rem;
 }
 
-.student-questions-footer-bold {
+.footer-year, .footer-copyright {
   font-weight: 700;
+}
+
+.footer-copyright {
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 4.844rem;
+}
+
+.footer-email {
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 6.25rem;
 }
 
 .selected {
   background-color: rgba(169, 81, 165, 0.2);
-}
-
-/* Media Queries */
-@media (max-width: 991px) {
-  .student-questions-container {
-    padding: 16px;
-  }
-
-  .student-questions-content {
-    padding: 32px;
-  }
-
-  .student-questions-title {
-    font-size: 100px;
-  }
-
-  .student-questions-section-title {
-    font-size: 40px;
-  }
-
-  .student-questions-info-row {
-    gap: 32px;
-  }
-
-  .student-questions-input-group,
-  .student-questions-photo-group {
-    width: 100%;
-  }
-
-  .student-questions-label {
-    font-size: 32px;
-  }
-
-  .student-questions-input {
-    font-size: 28px;
-  }
-
-  .student-questions-photo-circle {
-    width: 200px;
-    height: 200px;
-  }
-
-  .student-questions-form-section {
-    gap: 32px;
-  }
-
-  .student-questions-options-row {
-    gap: 40px;
-  }
-
-  .student-questions-option,
-  .student-questions-level-option {
-    font-size: 28px;
-  }
-
-  .student-questions-unknown-level {
-    font-size: 28px;
-    width: 100%;
-  }
-
-  .student-questions-goal-option,
-  .student-questions-frequency-option,
-  .student-questions-duration-option,
-  .student-questions-time-option,
-  .student-questions-budget-option,
-  .student-questions-communication-option,
-  .student-questions-feedback-option,
-  .student-questions-criticism-option,
-  .student-questions-format-option,
-  .student-questions-interest-option,
-  .student-questions-learning-option,
-  .student-questions-homework-option {
-    font-size: 28px;
-    width: 100%;
-  }
-
-  .student-questions-timezone-select {
-    font-size: 28px;
-    width: 100%;
-  }
-
-  .student-questions-completion-message {
-    font-size: 40px;
-  }
-
-  .student-questions-submit-button {
-    font-size: 36px;
-    padding: 30px 60px;
-  }
-
-  .student-questions-footer {
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 640px) {
-  .student-questions-container {
-    padding: 12px;
-  }
-
-  .student-questions-content {
-    padding: 24px;
-  }
-
-  .student-questions-title {
-    font-size: 60px;
-  }
-
-  .student-questions-section-title {
-    font-size: 32px;
-  }
-
-  .student-questions-info-row {
-    gap: 24px;
-  }
-
-  .student-questions-label {
-    font-size: 24px;
-  }
-
-  .student-questions-input {
-    font-size: 20px;
-  }
-
-  .student-questions-photo-circle {
-    width: 150px;
-    height: 150px;
-  }
-
-  .student-questions-form-section {
-    gap: 24px;
-  }
-
-  .student-questions-options-row {
-    gap: 24px;
-  }
-
-  .student-questions-option,
-  .student-questions-level-option {
-    font-size: 20px;
-  }
-
-  .student-questions-unknown-level {
-    font-size: 20px;
-  }
-
-  .student-questions-goal-option,
-  .student-questions-frequency-option,
-  .student-questions-duration-option,
-  .student-questions-time-option,
-  .student-questions-budget-option,
-  .student-questions-communication-option,
-  .student-questions-feedback-option,
-  .student-questions-criticism-option,
-  .student-questions-format-option,
-  .student-questions-interest-option,
-  .student-questions-learning-option,
-  .student-questions-homework-option {
-    font-size: 20px;
-  }
-
-  .student-questions-timezone-select {
-    font-size: 20px;
-  }
-
-  .student-questions-completion-message {
-    font-size: 32px;
-  }
-
-  .student-questions-submit-button {
-    font-size: 24px;
-    padding: 20px 40px;
-  }
-
-  .student-questions-footer {
-    font-size: 16px;
-    flex-direction: column;
-  }
 }

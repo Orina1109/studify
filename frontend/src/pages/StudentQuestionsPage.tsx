@@ -82,7 +82,7 @@ const StudentQuestionsPage: React.FC = () => {
 
           <div className="student-questions-photo-group">
             <label className="student-questions-label">
-              Добавить фото или видео
+              Добавьте фото
             </label>
             <div className="student-questions-photo-circle"></div>
           </div>
@@ -331,7 +331,7 @@ const StudentQuestionsPage: React.FC = () => {
             <option value="">Выберите часовой пояс</option>
             <option value="UTC+2">UTC+2 (Калининград)</option>
             <option value="UTC+3">UTC+3 (Москва, Санкт-Петербург)</option>
-            <option value="UTC+4">UTC+4 (Са��ара)</option>
+            <option value="UTC+4">UTC+4 (Самара)</option>
             <option value="UTC+5">UTC+5 (Екатеринбург)</option>
             <option value="UTC+6">UTC+6 (Омск)</option>
             <option value="UTC+7">UTC+7 (Красноярск)</option>
@@ -548,7 +548,7 @@ const StudentQuestionsPage: React.FC = () => {
               className={`student-questions-interest-option ${interests.includes("art") ? "selected" : ""}`}
               onClick={() => handleInterestSelection("art")}
             >
-              И��кусство
+              Иcкусство
             </button>
             <button
               className={`student-questions-interest-option ${interests.includes("tech") ? "selected" : ""}`}
@@ -590,7 +590,7 @@ const StudentQuestionsPage: React.FC = () => {
               className={`student-questions-interest-option ${interests.includes("+") ? "selected" : ""}`}
               onClick={() => handleInterestSelection("+")}
             >
-              +
+              Другое
             </button>
           </div>
         </div>
@@ -665,19 +665,13 @@ const StudentQuestionsPage: React.FC = () => {
       </div>
 
       <footer className="student-questions-footer">
-        <div className="student-questions-footer-item student-questions-footer-bold">
-          2025
-        </div>
-        <div className="student-questions-footer-item student-questions-footer-bold">
-          ©FindMyTutor
-        </div>
-        <div className="student-questions-footer-item">О нас</div>
-        <div className="student-questions-footer-item">FindMy@Tutor.com</div>
-        <div className="student-questions-footer-item">
-          Обработка персональных данных
-        </div>
-        <div className="student-questions-footer-item">
-          Политика конфиденциальности
+        <div className="footer-content">
+          <div className="footer-year">2025</div>
+          <div className="footer-copyright">©FindMyTutor</div>
+          <div className="footer-link">О нас</div>
+          <div className="footer-email">FindMy@Tutor.com</div>
+          <div className="footer-privacy">Обработка персональных данных</div>
+          <div className="footer-policy">Политика конфиденциальности</div>
         </div>
       </footer>
     </div>

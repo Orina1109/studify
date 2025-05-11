@@ -54,7 +54,7 @@ class SecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFilte
             // Disable CSRF for REST API
 
             // Enable CORS
-            .cors { it.disable() }
+            .cors { it.configurationSource(corsConfigurationSource()) }
 
             // Configure session management to stateless
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }

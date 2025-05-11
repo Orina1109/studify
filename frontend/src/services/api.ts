@@ -13,11 +13,14 @@ const api = axios.create({
 // Add request interceptor for logging or token handling if needed
 api.interceptors.request.use(
   (config) => {
-    // You can add auth token here if needed
-    // const token = getCookie('authToken');
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    // Get auth token from cookies
+    const cookies = document.cookie.split(';');
+    const authTokenCookie = cookies.find(cookie => cookie.trim().startsWith('authToken='));
+
+    if (authTokenCookie) {
+      const token = authTokenCookie.split('=')[1];
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {

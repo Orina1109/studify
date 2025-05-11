@@ -4,10 +4,13 @@ import './App.css';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import LandingPage from './pages/LandingPage';
+import StudentQuestionsPage from './pages/StudentQuestionsPage';
+import api from './services/api';
 
 // Simple placeholder components
 const ForgotPassword = () => <div className="fullscreen-page">Forgot Password Page</div>;
 const NotFound = () => <div className="fullscreen-page">Page Not Found</div>;
+const TeacherQuestionPage = () => <div className="fullscreen-page">Teacher Question Page</div>;
 
 // Home component with auth check
 const Home = () => {
@@ -21,7 +24,28 @@ const Home = () => {
     if (!authTokenCookie) {
       // If no auth token, redirect to landing page
       navigate('/land');
+      return;
     }
+
+    // Fetch user profile to check filledQuestions flag and role using api service
+    api.get('/api/users/profile')
+    .then(response => {
+      const user = response.data;
+      // Check filledQuestions flag
+      if (!user.filledQuestions) {
+        // Redirect based on user role
+        if (user.role === 'STUDENT') {
+          navigate('/student-questions');
+        } else if (user.role === 'TEACHER') {
+          navigate('/teacher-questions');
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching user profile:', error);
+      // On error, redirect to landing page
+      navigate('/land');
+    });
   }, [navigate]);
 
   return <div className="fullscreen-page">Welcome to Studify</div>;
@@ -52,6 +76,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/student-questions" element={<StudentQuestionsPage />} />
+        <Route path="/teacher-questions" element={<TeacherQuestionPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
