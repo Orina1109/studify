@@ -1,0 +1,95 @@
+package org.studify.model
+
+// Teacher Question DTOs
+data class TeacherQuestionRequest(
+    val name: String,
+    val age: String,
+    val gender: Gender,
+    val language: Language,
+    val languageLevel: TeacherLanguageLevel,
+    val timezone: String,
+    val teachingGoals: List<String>,
+    val minStudentLevel: StudentLanguageLevel,
+    val maxStudentLevel: StudentLanguageLevel,
+    val interests: List<String>,
+    val teachingFrequency: TeachingFrequency,
+    val lessonDuration: LessonDuration,
+    val preferredTime: PreferredTime,
+    val lessonPrice: String,
+    val teachingStyle: TeachingStyle,
+    val feedbackStyle: FeedbackStyle,
+    val teachingMethod: TeachingMethod,
+    val explanationStyle: ExplanationStyle,
+    val homeworkApproach: HomeworkApproach
+)
+
+data class TeacherQuestionResponse(
+    val id: Long?,
+    val userId: Long,
+    val name: String,
+    val age: String,
+    val gender: Gender,
+    val language: Language,
+    val languageLevel: TeacherLanguageLevel,
+    val timezone: String,
+    val teachingGoals: List<String>,
+    val minStudentLevel: StudentLanguageLevel,
+    val maxStudentLevel: StudentLanguageLevel,
+    val interests: List<String>,
+    val teachingFrequency: TeachingFrequency,
+    val lessonDuration: LessonDuration,
+    val preferredTime: PreferredTime,
+    val lessonPrice: String,
+    val teachingStyle: TeachingStyle,
+    val feedbackStyle: FeedbackStyle,
+    val teachingMethod: TeachingMethod,
+    val explanationStyle: ExplanationStyle,
+    val homeworkApproach: HomeworkApproach,
+    val createdAt: String
+)
+
+// Student Question DTOs
+data class StudentQuestionRequest(
+    val name: String,
+    val age: String,
+    val gender: Gender,
+    val language: Language,
+    val level: StudentLanguageLevel,
+    val goals: List<String>,
+    val frequency: Frequency,
+    val duration: LessonDuration,
+    val timezone: String,
+    val preferredTime: PreferredTime,
+    val budget: Budget,
+    val communicationStyle: CommunicationStyle,
+    val feedbackPreference: FeedbackPreference,
+    val criticismResponse: CriticismResponse,
+    val lessonFormat: LessonFormat,
+    val interests: List<String>,
+    val learningStyle: LearningStyle,
+    val homeworkAttitude: HomeworkAttitude
+)
+
+data class StudentQuestionResponse(
+    val id: Long?,
+    val userId: Long,
+    val name: String,
+    val age: String,
+    val gender: Gender,
+    val language: Language,
+    val level: StudentLanguageLevel,
+    val goals: List<String>,
+    val frequency: Frequency,
+    val duration: LessonDuration,
+    val timezone: String,
+    val preferredTime: PreferredTime,
+    val budget: Budget,
+    val communicationStyle: CommunicationStyle,
+    val feedbackPreference: FeedbackPreference,
+    val criticismResponse: CriticismResponse,
+    val lessonFormat: LessonFormat,
+    val interests: List<String>,
+    val learningStyle: LearningStyle,
+    val homeworkAttitude: HomeworkAttitude,
+    val createdAt: String
+)

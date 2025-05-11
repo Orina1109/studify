@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import "./TeacherQuestionPage.css";
+import api from "../services/api";
 
 const TeacherQuestionPage: React.FC = () => {
   const [name, setName] = useState("");
@@ -96,30 +97,37 @@ const TeacherQuestionPage: React.FC = () => {
     setHomeworkApproach(approach);
   };
 
-  const handleSubmit = () => {
-    // Handle form submission
-    console.log({
-      name,
-      age,
-      gender,
-      language,
-      languageLevel,
-      timezone,
-      teachingGoals,
-      minStudentLevel,
-      maxStudentLevel,
-      interests,
-      teachingFrequency,
-      lessonDuration,
-      preferredTime,
-      lessonPrice,
-      teachingStyle,
-      feedbackStyle,
-      teachingMethod,
-      explanationStyle,
-      homeworkApproach,
-    });
-    // Add API call here
+  const handleSubmit = async () => {
+    try {
+      const response = await api.post('/api/questions/teacher', {
+        name,
+        age,
+        gender,
+        language,
+        languageLevel,
+        timezone,
+        teachingGoals,
+        minStudentLevel,
+        maxStudentLevel,
+        interests,
+        teachingFrequency,
+        lessonDuration,
+        preferredTime,
+        lessonPrice,
+        teachingStyle,
+        feedbackStyle,
+        teachingMethod,
+        explanationStyle,
+        homeworkApproach,
+      });
+
+      console.log('Teacher question submitted successfully:', response.data);
+      alert('Анкета успешно отправлена!');
+      // Redirect or show success message
+    } catch (error) {
+      console.error('Error submitting teacher question:', error);
+      alert('Произошла ошибка при отправке анкеты. Пожалуйста, попробуйте еще раз.');
+    }
   };
 
   return (

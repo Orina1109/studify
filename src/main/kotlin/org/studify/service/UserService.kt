@@ -99,4 +99,11 @@ class UserService(private val userRepository: UserRepository) {
         userRepository.deleteById(id)
         return true
     }
+
+    @Transactional
+    suspend fun updateFilledQuestionsStatus(id: Long, filledQuestions: Boolean): User? {
+        val user = userRepository.findById(id).orElse(null) ?: return null
+        val updatedUser = user.copy(filledQuestions = filledQuestions)
+        return userRepository.save(updatedUser)
+    }
 }
