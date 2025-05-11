@@ -5,12 +5,12 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import LandingPage from './pages/LandingPage';
 import StudentQuestionsPage from './pages/StudentQuestionsPage';
+import TeacherQuestionPage from './pages/TeacherQuestionPage';
 import api from './services/api';
 
 // Simple placeholder components
 const ForgotPassword = () => <div className="fullscreen-page">Forgot Password Page</div>;
 const NotFound = () => <div className="fullscreen-page">Page Not Found</div>;
-const TeacherQuestionPage = () => <div className="fullscreen-page">Teacher Question Page</div>;
 
 // Home component with auth check
 const Home = () => {

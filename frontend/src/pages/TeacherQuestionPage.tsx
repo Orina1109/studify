@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import "./TeacherQuestionPage.css";
 
 const TeacherQuestionPage: React.FC = () => {
@@ -127,40 +127,36 @@ const TeacherQuestionPage: React.FC = () => {
       <div className="teacher-question-form">
         <h1 className="teacher-question-title">Анкета репетитора</h1>
 
-        {/* Basic Information Section */}
         <h2 className="teacher-question-section-title">Основная информация</h2>
         <div className="teacher-question-info-grid">
-          <div className="teacher-question-input-group">
-            <div className="teacher-question-label">Как вас зовут?</div>
-            <div className="teacher-question-input-wrapper">
-              <input
-                type="text"
-                placeholder="Введите имя"
-                className="teacher-question-input"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
+          <div className="teacher-question-info-grid-main">
+            <div className="teacher-question-input-group">
+              <div className="teacher-question-label">Как вас зовут?</div>
+                <input
+                    type="text"
+                    placeholder="Введите имя"
+                    className="teacher-question-input"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+            </div>
+
+            <div className="teacher-question-input-group">
+              <div className="teacher-question-label">Сколько вам лет?</div>
+                <input
+                    type="text"
+                    placeholder="Введите возраст"
+                    className="teacher-question-input"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                />
             </div>
           </div>
-
-          <div className="teacher-question-input-group">
+          <div className="teacher-questions-photo-group">
             <div className="teacher-question-label">
               Добавить фото или видео
             </div>
-            <div className="teacher-question-photo-upload">+</div>
-          </div>
-
-          <div className="teacher-question-input-group">
-            <div className="teacher-question-label">Сколько вам лет?</div>
-            <div className="teacher-question-input-wrapper">
-              <input
-                type="text"
-                placeholder="Введите возраст"
-                className="teacher-question-input"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-              />
-            </div>
+            <div className="teacher-question-photo-upload"></div>
           </div>
         </div>
 
@@ -269,10 +265,25 @@ const TeacherQuestionPage: React.FC = () => {
 
         {/* Timezone */}
         <div className="teacher-question-section">
-          <div className="teacher-question-label">Ваш часовой пояс</div>
-          <div className="teacher-question-timezone-select">
-            Выберите часовой пояс
-          </div>
+          <label className="teacher-question-label">Ваш часовой пояс</label>
+          <select
+              className="teacher-question-timezone-select"
+              value={timezone}
+              onChange={(e) => setTimezone(e.target.value)}
+          >
+            <option value="">Выберите часовой пояс</option>
+            <option value="UTC+2">UTC+2 (Калининград)</option>
+            <option value="UTC+3">UTC+3 (Москва, Санкт-Петербург)</option>
+            <option value="UTC+4">UTC+4 (Самара)</option>
+            <option value="UTC+5">UTC+5 (Екатеринбург)</option>
+            <option value="UTC+6">UTC+6 (Омск)</option>
+            <option value="UTC+7">UTC+7 (Красноярск)</option>
+            <option value="UTC+8">UTC+8 (Иркутск)</option>
+            <option value="UTC+9">UTC+9 (Якутск)</option>
+            <option value="UTC+10">UTC+10 (Владивосток)</option>
+            <option value="UTC+11">UTC+11 (Магадан)</option>
+            <option value="UTC+12">UTC+12 (Камчатка)</option>
+          </select>
         </div>
 
         {/* Ideal Student Section */}
@@ -481,7 +492,10 @@ const TeacherQuestionPage: React.FC = () => {
             >
               Наука
             </div>
-            <div className="teacher-question-option-interest">+</div>
+            <div
+                className={`teacher-question-option-interest ${interests.includes("+") ? "selected" : ""}`}
+                onClick={() => handleInterestToggle("+")}
+            >Другое</div>
           </div>
         </div>
 
@@ -551,7 +565,7 @@ const TeacherQuestionPage: React.FC = () => {
               className={`teacher-question-option-medium ${lessonDuration === "Неважно" ? "selected" : ""}`}
               onClick={() => handleLessonDurationSelect("Неважно")}
             >
-              Нев��жно
+              Неважно
             </div>
           </div>
         </div>
@@ -566,19 +580,19 @@ const TeacherQuestionPage: React.FC = () => {
               className={`teacher-question-option-medium ${preferredTime === "Утро" ? "selected" : ""}`}
               onClick={() => handlePreferredTimeSelect("Утро")}
             >
-              Утро (66:000 – 100:000)
+              Утро (06:000 – 10:000)
             </div>
             <div
               className={`teacher-question-option-medium ${preferredTime === "День" ? "selected" : ""}`}
               onClick={() => handlePreferredTimeSelect("День")}
             >
-              День (100:000 – 166:000)
+              День (10:000 – 16:000)
             </div>
             <div
               className={`teacher-question-option-medium ${preferredTime === "Вечер" ? "selected" : ""}`}
               onClick={() => handlePreferredTimeSelect("Вечер")}
             >
-              Вечер (166:00 – 222:000)
+              Вечер (16:00 – 22:000)
             </div>
             <div
               className={`teacher-question-option-medium ${preferredTime === "Неважно" ? "selected" : ""}`}
@@ -686,7 +700,7 @@ const TeacherQuestionPage: React.FC = () => {
         {/* Teaching Method */}
         <div className="teacher-question-section">
           <div className="teacher-question-label">
-            Какой тип передачи информации вы использу��те чаще?
+            Какой тип передачи информации вы используете чаще?
           </div>
           <div className="teacher-question-options">
             <div
@@ -773,7 +787,7 @@ const TeacherQuestionPage: React.FC = () => {
         </div>
 
         {/* Completion Message */}
-        <h2 className="teacher-question-section-title">
+        <h2 className="teacher-questions-completion-message">
           Вы проделали большую работу! Отправляйтесь на поиски идеального
           ученика и собеседника.
         </h2>
@@ -788,17 +802,15 @@ const TeacherQuestionPage: React.FC = () => {
       </div>
 
       {/* Footer */}
-      <div className="teacher-question-footer">
-        <span className="teacher-question-footer-bold">2025</span>
-        <span className="teacher-question-footer-bold">©FindMyTutor</span>
-        <span className="teacher-question-footer-text">О нас</span>
-        <span className="teacher-question-footer-text">FindMy@Tutor.com</span>
-        <span className="teacher-question-footer-text">
-          Обработка персональ��ых данных
-        </span>
-        <span className="teacher-question-footer-text">
-          Политика конфиденциальности
-        </span>
+      <div className="teacher-questions-footer">
+          <div className="footer-content">
+              <div className="footer-year">2025</div>
+              <div className="footer-copyright">©FindMyTutor</div>
+              <div className="footer-link">О нас</div>
+              <div className="footer-email">FindMy@Tutor.com</div>
+              <div className="footer-privacy">Обработка персональных данных</div>
+              <div className="footer-policy">Политика конфиденциальности</div>
+          </div>
       </div>
     </div>
   );

@@ -74,6 +74,7 @@
   height: 9.25rem;
   border: 0.125rem solid #a951a5;
   border-radius: 25rem;
+  cursor: pointer;
 }
 
 .student-questions-form-section {
