@@ -4,7 +4,7 @@ import "./MyQuestionsPage.css";
 const MyQuestionsPage: React.FC = () => {
   return (
     <div className="questionnaire-container">
-      <div className="header-section">
+      <div className="question-content">
         <div className="header-content">
           <div className="header-title-column">
             <h1 className="main-title">Find my tutor</h1>
@@ -45,8 +45,8 @@ const MyQuestionsPage: React.FC = () => {
 
       <h2 className="section-title">Ваша анкета (ученик)</h2>
 
-      <div className="profile-section">
-        <div className="profile-content">
+      <div className="question-dashboard">
+        <div className="question-profile-content">
           <div className="profile-info-column">
             <div className="profile-info-container">
               <div className="profile-image-column">
@@ -95,7 +95,7 @@ const MyQuestionsPage: React.FC = () => {
         <div className="compatibility-content">
           <div className="compatibility-title-column">
             <h3 className="compatibility-title">
-              Совместимость с преподавателем
+              Совместимость с преподавателем:
             </h3>
           </div>
           <div className="compatibility-details-column">
@@ -107,25 +107,23 @@ const MyQuestionsPage: React.FC = () => {
                 <div className="compatibility-box">
                   Люблю подробный разбор ошибок
                 </div>
-              </div>
-              <div className="compatibility-box format-box">
-                Формат уроков: свободное общение и практика разговора
+                <div className="compatibility-box">
+                  Формат уроков: свободное общение и практика разговора
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <footer className="footer-section">
-        <div className="footer-group">
+      <footer className="question-footer">
+        <div className="footer-content">
           <div className="footer-year">2025</div>
           <div className="footer-copyright">©FindMyTutor</div>
-          <div className="footer-link">О нас</div>
-        </div>
-        <div className="footer-links">
+          <div className="footer-about">О нас</div>
           <div className="footer-email">FindMy@Tutor.com</div>
-          <div className="footer-link">Обработка персональных данных</div>
-          <div className="footer-link">Политика конфиденциальности</div>
+          <div className="footer-privacy">Обработка персональных данных</div>
+          <div className="footer-policy">Политика конфиденциальности</div>
         </div>
       </footer>
     </div>

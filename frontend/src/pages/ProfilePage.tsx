@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ProfilePage.css";
 import api from "../services/api";
 
@@ -14,6 +15,7 @@ interface Appointment {
 }
 
 const ProfilePage: React.FC = () => {
+  const navigate = useNavigate();
   const [currentDate] = useState(new Date());
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(false);
@@ -166,7 +168,7 @@ const ProfilePage: React.FC = () => {
       <div className="section-title">Ваша информация</div>
       <div className="profile-dashboard">
         <div className="sidebar-menu">
-          <div className="menu-item">Ваша анкета</div>
+          <div className="menu-item" onClick={() => navigate('/my-questions')}>Ваша анкета</div>
           <div className="menu-item">Вы на одной волне</div>
           <div className="menu-item">Архив занятий</div>
           <div className="menu-item">Настройки</div>
