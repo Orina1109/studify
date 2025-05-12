@@ -250,6 +250,73 @@
   color: rgb(140, 140, 140);
 }
 
+/* Calendar day with appointments */
+.calendar-day {
+  position: relative;
+}
+
+.calendar-day.has-appointments {
+  background-color: rgba(169, 81, 165, 0.2);
+  font-weight: bold;
+}
+
+/* Appointment tooltip */
+.appointment-tooltip {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  z-index: 10;
+  min-width: 250px;
+  background-color: white;
+  border: 2px solid rgba(169, 81, 165, 1);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  color: rgba(169, 81, 165, 1);
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.tooltip-header {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(169, 81, 165, 0.3);
+  padding-bottom: 5px;
+}
+
+.tooltip-content {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.appointment-item {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(169, 81, 165, 0.2);
+}
+
+.appointment-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.appointment-name {
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.appointment-time {
+  font-size: 0.85rem;
+  margin-bottom: 3px;
+}
+
+.appointment-teacher {
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
 .profile-footer {
   background-color: rgba(255, 229, 214, 1);
   display: flex;

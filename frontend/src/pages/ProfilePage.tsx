@@ -1,8 +1,42 @@
 import React, { useState, useEffect } from "react";
 import "./ProfilePage.css";
+import api from "../services/api";
+
+interface Appointment {
+  id: number;
+  name: string;
+  description: string;
+  appointmentTime: string;
+  meetingLink: string;
+  teacherName: string;
+  studentId: number;
+  createdAt: string;
+}
 
 const ProfilePage: React.FC = () => {
   const [currentDate] = useState(new Date());
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [hoveredDay, setHoveredDay] = useState<{ year: number; month: number; day: number } | null>(null);
+
+  // Fetch appointments when component mounts
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      setLoading(true);
+      try {
+        const response = await api.get('/api/appointments/list');
+        setAppointments(response.data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+        console.error('Error fetching appointments:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAppointments();
+  }, []);
 
   // Get month name in Russian
   const getMonthName = (month: number): string => {
@@ -11,6 +45,19 @@ const ProfilePage: React.FC = () => {
       "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
     ];
     return monthNames[month];
+  };
+
+  // Get appointments for a specific day
+  const getAppointmentsForDay = (year: number, month: number, day: number): Appointment[] => {
+    const date = new Date(year, month, day);
+    const dateString = date.toISOString().split('T')[0]; // Get YYYY-MM-DD format
+
+    return appointments.filter(appointment => {
+      const appointmentDate = new Date(appointment.appointmentTime);
+      return appointmentDate.getFullYear() === year &&
+             appointmentDate.getMonth() === month &&
+             appointmentDate.getDate() === day;
+    });
   };
 
   // Generate calendar data
@@ -133,10 +180,42 @@ const ProfilePage: React.FC = () => {
               <div className="calendar-week" key={`week-${weekIndex}`}>
                 {week.map((day, dayIndex) => (
                   <div 
-                    className={`calendar-day ${day.isToday ? 'current-day' : ''} ${day.isDisabled ? 'disabled' : ''}`}
+                    className={`calendar-day ${day.isToday ? 'current-day' : ''} ${day.isDisabled ? 'disabled' : ''} ${
+                      !day.isDisabled && getAppointmentsForDay(currentDate.getFullYear(), currentDate.getMonth(), day.day).length > 0 ? 'has-appointments' : ''
+                    }`}
                     key={`day-${weekIndex}-${dayIndex}`}
+                    onMouseEnter={() => {
+                      if (!day.isDisabled) {
+                        setHoveredDay({
+                          year: currentDate.getFullYear(),
+                          month: currentDate.getMonth(),
+                          day: day.day
+                        });
+                      }
+                    }}
+                    onMouseLeave={() => setHoveredDay(null)}
                   >
                     {day.day > 0 ? day.day : ''}
+                    {!day.isDisabled && hoveredDay && 
+                     hoveredDay.year === currentDate.getFullYear() && 
+                     hoveredDay.month === currentDate.getMonth() && 
+                     hoveredDay.day === day.day && 
+                     getAppointmentsForDay(currentDate.getFullYear(), currentDate.getMonth(), day.day).length > 0 && (
+                      <div className="appointment-tooltip">
+                        <div className="tooltip-header">Занятия на {day.day} {getMonthName(currentDate.getMonth())}</div>
+                        <div className="tooltip-content">
+                          {getAppointmentsForDay(currentDate.getFullYear(), currentDate.getMonth(), day.day).map(appointment => (
+                            <div key={appointment.id} className="appointment-item">
+                              <div className="appointment-name">{appointment.name}</div>
+                              <div className="appointment-time">
+                                {new Date(appointment.appointmentTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                              </div>
+                              <div className="appointment-teacher">Преподаватель: {appointment.teacherName}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
