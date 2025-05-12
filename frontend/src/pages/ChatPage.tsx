@@ -34,13 +34,13 @@ const ChatPage: React.FC = () => {
     <div className="chat-page">
       <div className="chat-header">
         <div className="header-content">
-          <div className="header-title-column">
+          <div className="chat-header-title-column">
             <h1 className="header-title">Find my tutor</h1>
           </div>
-          <div className="header-buttons-column">
+          <div className="chat-header-buttons-column">
             <div className="header-buttons">
-              <button
-                className="nav-button back-button"
+              <div
+                className="chat-nav-button back-button"
                 onClick={handleBackClick}
               >
                 <img
@@ -48,9 +48,9 @@ const ChatPage: React.FC = () => {
                   alt="Back"
                   className="button-icon"
                 />
-              </button>
-              <button
-                className="nav-button home-button"
+              </div>
+              <div
+                className="chat-nav-button home-button"
                 onClick={handleHomeClick}
               >
                 <img
@@ -58,7 +58,7 @@ const ChatPage: React.FC = () => {
                   alt="Home"
                   className="button-icon"
                 />
-              </button>
+              </div>
             </div>
           </div>
         </div>
@@ -69,15 +69,15 @@ const ChatPage: React.FC = () => {
           <div className="profile-left">
             <div className="profile-header">
               <div className="profile-chat-label">Чат</div>
-              <button className="contact-button">
+              <button className="chat-contact-button">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/c7bb6a26fb546fc6d347b6d7d44e8bb4ef33b50a?placeholderIfAbsent=true"
                   alt="Contact"
-                  className="contact-icon"
+                  className="chat-contact-icon"
                 />
               </button>
             </div>
-            <div className="teacher-name">Екатерина</div>
+            <div className="chat-teacher-name">Екатерина</div>
           </div>
           <div className="profile-right">
             <img
@@ -85,16 +85,16 @@ const ChatPage: React.FC = () => {
               alt="Teacher"
               className="teacher-photo"
             />
-          </div>
-        </div>
-        <div className="teacher-details">
-          <div className="detail-row">
-            <div className="detail-label">Бюджет:</div>
-            <div className="detail-value">2000 руб. / занятие</div>
-          </div>
-          <div className="detail-row">
-            <div className="detail-label">Часовой пояс:</div>
-            <div className="detail-value">Екб (GMT+5)</div>
+            <div className="teacher-details">
+              <div className="detail-row">
+                <div className="detail-label">Бюджет:</div>
+                <div className="detail-value">2000 руб. / занятие</div>
+              </div>
+              <div className="detail-row">
+                <div className="detail-label">Часовой пояс:</div>
+                <div className="detail-value">Екб (GMT+5)</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -107,10 +107,26 @@ const ChatPage: React.FC = () => {
         />
         <div className="chat-messages">
           <div className="message-group">
+            <div className="message-column right">
+              <div className="message-wrapper">
+                <div className="sender-name">Вы</div>
+                <div className="message">
+                  <img
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/3081a45235c365debc3e00efa6c6c800535ada12?placeholderIfAbsent=true"
+                      alt="Message bubble"
+                      className="message-bubble"
+                  />
+                  <div className="message-text">
+                    Привет! Кажется, наши интересы совпадают. Может быть
+                    проведем пробное занятие завтра в 155:000 тут?
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="message-column left">
               <div className="message-wrapper">
                 <div className="sender-name">Екатерина</div>
-                <div className="message teacher-message">
+                <div className="message">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/b5467362a4b1676ef65e7d48974487a1d27fb37d?placeholderIfAbsent=true"
                     alt="Message bubble"
@@ -118,23 +134,6 @@ const ChatPage: React.FC = () => {
                   />
                   <div className="message-text">
                     Привет! Давай, вот ссылка. До встречи завтра!
-                  </div>
-                </div>
-                <div className="message-time">______</div>
-              </div>
-            </div>
-            <div className="message-column right">
-              <div className="message-wrapper">
-                <div className="sender-name">Вы</div>
-                <div className="message user-message">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/3081a45235c365debc3e00efa6c6c800535ada12?placeholderIfAbsent=true"
-                    alt="Message bubble"
-                    className="message-bubble"
-                  />
-                  <div className="message-text">
-                    Привет! Кажется, наши интересы совпадают. Может быть
-                    проведем пробное занятие завтра в 155:000 тут?
                   </div>
                 </div>
               </div>
@@ -150,28 +149,24 @@ const ChatPage: React.FC = () => {
             onChange={(e) => setMessageInput(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
           />
-          <button className="send-button" onClick={handleSendMessage}>
+          <div className="send-button" onClick={handleSendMessage}>
             <img
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/e520290c9350f31b0e83a78f550b0cdceec21fdb?placeholderIfAbsent=true"
               alt="Send"
               className="send-icon"
             />
-          </button>
+          </div>
         </div>
       </div>
 
       <footer className="chat-footer">
-        <div className="footer-left">
+        <div className="footer-content">
           <div className="footer-year">2025</div>
           <div className="footer-copyright">©FindMyTutor</div>
           <div className="footer-about">О нас</div>
-        </div>
-        <div className="footer-right">
           <div className="footer-email">FindMy@Tutor.com</div>
-          <div className="footer-data-processing">
-            Обработка персональных данных
-          </div>
-          <div className="footer-privacy">Политика конфиденциальности</div>
+          <div className="footer-privacy">Обработка персональных данных</div>
+          <div className="footer-policy">Политика конфиденциальности</div>
         </div>
       </footer>
     </div>
