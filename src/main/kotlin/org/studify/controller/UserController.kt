@@ -14,11 +14,9 @@ import org.studify.service.UserService
 class UserController(private val userService: UserService) {
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     suspend fun getAllUsers(): List<User> = userService.getAllUsers()
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     suspend fun getUserById(@PathVariable id: Long): ResponseEntity<Any> {
         val user = userService.getUserById(id)
         return if (user != null) {
@@ -33,7 +31,6 @@ class UserController(private val userService: UserService) {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     suspend fun createUser(@RequestBody user: User): ResponseEntity<Any> {
         return try {
             val createdUser = userService.addUser(user)
@@ -54,7 +51,6 @@ class UserController(private val userService: UserService) {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     suspend fun updateUser(
         @PathVariable id: Long,
         @RequestBody user: User
@@ -72,7 +68,6 @@ class UserController(private val userService: UserService) {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     suspend fun deleteUser(@PathVariable id: Long): ResponseEntity<Any> {
         val deleted = userService.deleteUser(id)
         return if (deleted) {

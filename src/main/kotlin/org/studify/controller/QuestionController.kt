@@ -119,12 +119,38 @@ class QuestionController(
         return ResponseEntity.ok(mapToTeacherQuestionResponse(teacherQuestion))
     }
 
+    @GetMapping("/teacher/{userId}")
+    suspend fun getTeacherQuestionByUserId(@PathVariable userId: Long): ResponseEntity<Any> {
+        val user = userService.getUserById(userId) ?: return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ErrorResponse("User not found", "USER_NOT_FOUND"))
+
+        val teacherQuestion = teacherQuestionRepository.findByUser(user) ?: return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ErrorResponse("Teacher question not found", "QUESTION_NOT_FOUND"))
+
+        return ResponseEntity.ok(mapToTeacherQuestionResponse(teacherQuestion))
+    }
+
     @GetMapping("/student")
     suspend fun getStudentQuestion(): ResponseEntity<Any> {
         val authentication = SecurityContextHolder.getContext().authentication
         val username = authentication.name
         val user = userService.getUserByUsername(username) ?: return ResponseEntity
             .status(HttpStatus.UNAUTHORIZED)
+            .body(ErrorResponse("User not found", "USER_NOT_FOUND"))
+
+        val studentQuestion = studentQuestionRepository.findByUser(user) ?: return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ErrorResponse("Student question not found", "QUESTION_NOT_FOUND"))
+
+        return ResponseEntity.ok(mapToStudentQuestionResponse(studentQuestion))
+    }
+
+    @GetMapping("/student/{userId}")
+    suspend fun getStudentQuestionByUserId(@PathVariable userId: Long): ResponseEntity<Any> {
+        val user = userService.getUserById(userId) ?: return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
             .body(ErrorResponse("User not found", "USER_NOT_FOUND"))
 
         val studentQuestion = studentQuestionRepository.findByUser(user) ?: return ResponseEntity

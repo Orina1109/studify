@@ -234,8 +234,29 @@
 }
 
 .chat-messages {
-    width: 100%;
+    width: auto;
     z-index: 1;
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.loading-messages, .error-messages, .no-messages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10rem;
+    color: rgba(169, 81, 165, 1);
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 0.9375rem;
+    padding: 1rem;
+}
+
+.error-messages {
+    color: #d32f2f;
 }
 
 .message-group {
