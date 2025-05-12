@@ -8,6 +8,7 @@ import StudentQuestionsPage from './pages/StudentQuestionsPage';
 import TeacherQuestionPage from './pages/TeacherQuestionPage';
 import ProfilePage from './pages/ProfilePage';
 import MyQuestionsPage from './pages/MyQuestionsPage';
+import LookupPage from './pages/LookupPage';
 import api from './services/api';
 
 // Simple placeholder components
@@ -85,6 +86,7 @@ function App() {
         <Route path="/teacher-questions" element={<TeacherQuestionPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/my-questions" element={<MyQuestionsPage />} />
+        <Route path="/lookup" element={<LookupPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
