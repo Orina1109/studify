@@ -49,14 +49,15 @@ class AppointmentController(
             .status(HttpStatus.UNAUTHORIZED)
             .body(ErrorResponse("User not found", "USER_NOT_FOUND"))
 
-        if (user.role != UserRole.STUDENT) {
+        if (user.role != UserRole.STUDENT && user.role != UserRole.TEACHER) {
             return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
-                .body(ErrorResponse("Only students can view appointment lists", "FORBIDDEN"))
+                .body(ErrorResponse("Only students and teachers can view appointment lists", "FORBIDDEN"))
         }
 
         try {
-            val appointments = appointmentService.getAppointmentsForCurrentAndNextMonth(user.id!!)
+            val isTeacher = user.role == UserRole.TEACHER
+            val appointments = appointmentService.getAppointmentsForCurrentAndNextMonth(user.id!!, isTeacher)
             return ResponseEntity.ok(appointments)
         } catch (e: IllegalArgumentException) {
             return ResponseEntity

@@ -21,21 +21,21 @@ class AppointmentService(
         val teacher = userRepository.findById(teacherId).orElseThrow {
             IllegalArgumentException("Teacher with ID $teacherId not found")
         }
-        
+
         if (teacher.role != UserRole.TEACHER) {
             throw IllegalArgumentException("User with ID $teacherId is not a teacher")
         }
-        
+
         val student = userRepository.findById(request.studentId).orElseThrow {
             IllegalArgumentException("Student with ID ${request.studentId} not found")
         }
-        
+
         if (student.role != UserRole.STUDENT) {
             throw IllegalArgumentException("User with ID ${request.studentId} is not a student")
         }
-        
+
         val appointmentTime = LocalDateTime.parse(request.appointmentTime, dateFormatter)
-        
+
         val appointment = Appointment(
             name = request.name,
             description = request.description,
@@ -44,24 +44,28 @@ class AppointmentService(
             teacher = teacher,
             student = student
         )
-        
+
         return appointmentRepository.save(appointment)
     }
-    
+
     @Transactional(readOnly = true)
-    suspend fun getAppointmentsForCurrentAndNextMonth(studentId: Long): List<AppointmentListResponse> {
-        val student = userRepository.findById(studentId).orElseThrow {
-            IllegalArgumentException("Student with ID $studentId not found")
+    suspend fun getAppointmentsForCurrentAndNextMonth(userId: Long, isTeacher: Boolean = false): List<AppointmentListResponse> {
+        val user = userRepository.findById(userId).orElseThrow {
+            IllegalArgumentException("User with ID $userId not found")
         }
-        
+
         val currentMonth = YearMonth.now()
         val nextMonth = currentMonth.plusMonths(1)
-        
+
         val startDate = currentMonth.atDay(1).atStartOfDay()
         val endDate = nextMonth.atEndOfMonth().atTime(23, 59, 59)
-        
-        val appointments = appointmentRepository.findByStudentAndDateRange(student, startDate, endDate)
-        
+
+        val appointments = if (isTeacher) {
+            appointmentRepository.findByTeacherAndDateRange(user, startDate, endDate)
+        } else {
+            appointmentRepository.findByStudentAndDateRange(user, startDate, endDate)
+        }
+
         return appointments.map { appointment ->
             AppointmentListResponse(
                 id = appointment.id,
@@ -75,12 +79,12 @@ class AppointmentService(
             )
         }
     }
-    
+
     @Transactional(readOnly = true)
     suspend fun getAppointmentById(id: Long): Appointment? {
         return appointmentRepository.findById(id).orElse(null)
     }
-    
+
     @Transactional
     suspend fun deleteAppointment(id: Long): Boolean {
         if (!appointmentRepository.existsById(id)) {
