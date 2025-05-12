@@ -1,5 +1,32 @@
 package org.studify.model
 
+data class TeacherLookupResponse(
+    val id: Long?,
+    val userId: Long,
+    val name: String,
+    val age: String,
+    val photoData: String? = null,
+    val gender: Gender,
+    val language: Language,
+    val languageLevel: TeacherLanguageLevel,
+    val timezone: String,
+    val teachingGoals: List<Goal>,
+    val minStudentLevel: StudentLanguageLevel,
+    val maxStudentLevel: StudentLanguageLevel,
+    val interests: List<Interest>,
+    val teachingFrequency: TeachingFrequency,
+    val lessonDuration: LessonDuration,
+    val preferredTime: PreferredTime,
+    val lessonPrice: Budget,
+    val teachingStyle: TeachingStyle,
+    val feedbackStyle: FeedbackStyle,
+    val teachingMethod: TeachingMethod,
+    val explanationStyle: ExplanationStyle,
+    val homeworkApproach: HomeworkApproach,
+    val createdAt: String,
+    val compatibilityScore: Double
+)
+
 data class TeacherQuestionRequest(
     val name: String,
     val age: String,
