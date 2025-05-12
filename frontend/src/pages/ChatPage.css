@@ -89,12 +89,12 @@
     z-index: 10;
     margin-top: 0.3125rem;
     width: 100%;
-    max-width: 92.125rem;
 }
 
 .profile-info {
     display: flex;
     gap: 1.25rem;
+    width: 100%;
 }
 
 .profile-left {
@@ -151,6 +151,8 @@
     display: flex;
     flex-direction: row;
     margin-left: 1.25rem;
+    align-items: end;
+    width: 100%;
 }
 
 .teacher-photo {
@@ -165,6 +167,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
     margin-left: 1.25rem;
     align-self: end;
     font-size: 2.0rem;
@@ -210,6 +213,7 @@
 }
 
 .chat-container {
+    max-height: 50rem;
     display: flex;
     position: relative;
     flex-direction: column;
@@ -240,19 +244,18 @@
     height: auto;
     width: 100%;
     gap: 1.25rem;
-    align-items: end;
 }
 
 .message-column {
-
+    max-width: 70%;
 }
 
 .message-column.left {
-    align-self: start;
+    align-self: flex-start;
 }
 
 .message-column.right {
-    align-self: end;
+    align-self: flex-end;
 }
 
 .message-wrapper {
@@ -263,39 +266,34 @@
 }
 
 .message-column.left .message-wrapper {
-
+    align-items: flex-start;
 }
 
 .message-column.right .message-wrapper {
+    align-items: flex-end;
     text-align: right;
 }
 
 .sender-name {
     color: rgba(255, 229, 214, 1);
-    z-index: 0;
+    margin-bottom: 0.3rem;
 }
 
 .message {
-
-}
-
-.message-bubble {
-    border-radius: 0.9375rem;
-    z-index: 0;
-}
-
-.teacher-message .message-bubble {
-    align-self: end;
-}
-
-.user-message .message-bubble {
-    align-self: end;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .message-text {
     color: rgba(169, 81, 165, 1);
+    background-color: white;
+    border-radius: 0.9375rem;
+    padding: 0.75rem 1rem;
+    position: relative;
     z-index: 1;
     max-width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .message-time {

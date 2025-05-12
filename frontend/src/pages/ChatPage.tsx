@@ -111,11 +111,6 @@ const ChatPage: React.FC = () => {
               <div className="message-wrapper">
                 <div className="sender-name">Вы</div>
                 <div className="message">
-                  <img
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/3081a45235c365debc3e00efa6c6c800535ada12?placeholderIfAbsent=true"
-                      alt="Message bubble"
-                      className="message-bubble"
-                  />
                   <div className="message-text">
                     Привет! Кажется, наши интересы совпадают. Может быть
                     проведем пробное занятие завтра в 155:000 тут?
@@ -127,11 +122,6 @@ const ChatPage: React.FC = () => {
               <div className="message-wrapper">
                 <div className="sender-name">Екатерина</div>
                 <div className="message">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/b5467362a4b1676ef65e7d48974487a1d27fb37d?placeholderIfAbsent=true"
-                    alt="Message bubble"
-                    className="message-bubble"
-                  />
                   <div className="message-text">
                     Привет! Давай, вот ссылка. До встречи завтра!
                   </div>
