@@ -10,17 +10,19 @@ interface TeacherData {
   name: string;
   photoData: string;
   timezone: string;
-  lessonPrice: number;
+  lessonPrice: string;
   lessonDuration: string;
 }
 
 // Define the interface for student data
 interface StudentData {
   id: number;
+  userId: number;
+  photoData: string;
   name: string;
-  email: string;
-  username: string;
-  createdAt: string;
+  budget: string; // Replaces lessonPrice
+  duration: string; // Replaces lessonDuration
+  timezone: string;
 }
 
 // Define user role type
@@ -109,11 +111,11 @@ const PickedTeachersPage: React.FC = () => {
     }
 
     // Map price to budget range as it was in the form
-    let priceRange = "До 1000 руб.";
+    let priceRange = "До 1000 руб";
     if (price >= 1000 && price <= 2000) {
-      priceRange = "1000–2000 руб.";
+      priceRange = "1000–2000 руб";
     } else if (price > 2000) {
-      priceRange = "От 2000 руб.";
+      priceRange = "От 2000 руб";
     }
 
     return `${priceRange} / ${durationMinutes} мин`;
@@ -158,16 +160,7 @@ const PickedTeachersPage: React.FC = () => {
                 </div>
               </div>
               <div className="picked-button-column">
-                <div 
-                  className="nav-button contact-button"
-                  onClick={() => {
-                    if (teachers.length > 0) {
-                      handleContactClick(teachers[0].userId);
-                    } else {
-                      alert("No teachers available to contact");
-                    }
-                  }}
-                >
+                <div className="nav-button contact-button">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b7145d00642cc2b88cafb90c53b920f225c12da?placeholderIfAbsent=true"
                     className="button-icon"
@@ -192,9 +185,9 @@ const PickedTeachersPage: React.FC = () => {
         {loading && <div className="loading-message">Loading teachers...</div>}
         {error && <div className="error-message">{error}</div>}
 
-        <div className="teacher-list">
+        {teachers.length !== 0 && <div className="teacher-list">
           {!loading && !error && teachers.length === 0 && (
-            <div className="no-teachers-message">No picked teachers found.</div>
+            <div className="no-teachers-message">Вы пока никого не выбрали.</div>
           )}
 
           {teachers.map((teacher) => (
@@ -208,7 +201,12 @@ const PickedTeachersPage: React.FC = () => {
                 <div className="teacher-name">{teacher.name}</div>
                 <div className="price-container">
                   <div className="price-tag">
-                    {formatPriceAndDuration(teacher.lessonPrice, teacher.lessonDuration)}
+                    {formatPriceAndDuration(
+                        teacher.lessonPrice === "LOW" ? 500 :
+                            teacher.lessonPrice === "MEDIUM" ? 1500 :
+                                2500, // HIGH
+                        teacher.lessonDuration
+                    )}
                   </div>
                 </div>
                 <div className="location-container">
@@ -227,7 +225,50 @@ const PickedTeachersPage: React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div>}
+
+        {students.length !== 0 && <div className="teacher-list">
+          {!loading && !error && students.length === 0 && (
+              <div className="no-teachers-message">Вы пока никого не выбрали.</div>
+          )}
+
+          {students.map((student) => (
+              <div className="teacher-item" key={student.id}>
+                <div className="teacher-info">
+                  <img
+                      src={student.photoData ? `${student.photoData}` : defaultTutorProfileImage}
+                      className="teacher-avatar"
+                      alt={`${student.name} avatar`}
+                  />
+                  <div className="teacher-name">{student.name}</div>
+                  <div className="price-container">
+                    <div className="price-tag">
+                      {formatPriceAndDuration(
+                        student.budget === "LOW" ? 500 : 
+                        student.budget === "MEDIUM" ? 1500 : 
+                        2500, // HIGH
+                        student.duration
+                      )}
+                    </div>
+                  </div>
+                  <div className="location-container">
+                    <div className="location-tag">{formatTimezone(student.timezone)}</div>
+                  </div>
+                  <div
+                      className="contact-button-container"
+                      onClick={() => handleContactClick(student.userId)}
+                  >
+                    <img
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b7145d00642cc2b88cafb90c53b920f225c12da?placeholderIfAbsent=true"
+                        className="contact-icon"
+                        alt="Contact"
+                    />
+                  </div>
+                </div>
+              </div>
+          ))}
+        </div>}
+
       </div>
     </div>
   );

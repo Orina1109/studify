@@ -22,6 +22,25 @@ const ProfilePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [hoveredDay, setHoveredDay] = useState<{ year: number; month: number; day: number } | null>(null);
 
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      // Call the logout endpoint
+      await api.post('/api/auth/logout');
+
+      // Delete the authToken cookie
+      document.cookie = "authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+      // Redirect to the landing page
+      navigate('/');
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Even if the API call fails, still delete the cookie and redirect
+      document.cookie = "authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      navigate('/');
+    }
+  };
+
   // Fetch appointments when component mounts
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -172,7 +191,7 @@ const ProfilePage: React.FC = () => {
           <div className="menu-item" onClick={() => navigate('/picked-teachers')}>Вы на одной волне</div>
           <div className="menu-item">Архив занятий</div>
           <div className="menu-item" onClick={() => navigate('/lookup')}>Найти преподавателя</div>
-          <div className="menu-item">Выход</div>
+          <div className="menu-item" onClick={handleLogout}>Выход</div>
         </div>
         <div className="calendar-section">
           <div className="calendar-title">Календарь занятий</div>

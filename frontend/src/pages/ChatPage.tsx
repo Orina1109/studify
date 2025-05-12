@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import "./ChatPage.css";
 import api from "../services/api";
 
@@ -166,6 +166,14 @@ const ChatPage: React.FC = () => {
     if (userId) {
       fetchMessages();
       fetchInterlocutorProfile();
+
+      // Set up polling for new messages every 2 seconds
+      const intervalId = setInterval(() => {
+        fetchMessages();
+      }, 3000);
+
+      // Clean up interval on component unmount
+      return () => clearInterval(intervalId);
     }
   }, [userId]);
 
@@ -173,17 +181,23 @@ const ChatPage: React.FC = () => {
   const fetchMessages = async () => {
     if (!userId) return;
 
-    setLoading(true);
+    if (messages.length === 0) {
+      setLoading(true);
+    }
     setError(null);
 
     try {
       const response = await api.get(`/api/messages/${userId}`);
-      setMessages(response.data);
+      if (response.data != messages) {
+          setMessages(response.data);
+      }
     } catch (err) {
       console.error("Error fetching messages:", err);
       setError("Failed to load messages. Please try again.");
     } finally {
-      setLoading(false);
+      if (messages.length === 0) {
+        setLoading(false);
+      }
     }
   };
 
@@ -277,16 +291,16 @@ const ChatPage: React.FC = () => {
               <div className="detail-row">
                 <div className="detail-label">Бюджет:</div>
                 <div className="detail-value">
-                  {profileLoading ? "Загрузка..." : 
-                   interlocutor ? formatPriceAndDuration(interlocutor.lessonPrice, interlocutor.lessonDuration) : 
+                  {profileLoading ? "Загрузка..." :
+                   interlocutor ? formatPriceAndDuration(interlocutor.lessonPrice, interlocutor.lessonDuration) :
                    "Не указано"}
                 </div>
               </div>
               <div className="detail-row">
                 <div className="detail-label">Часовой пояс:</div>
                 <div className="detail-value">
-                  {profileLoading ? "Загрузка..." : 
-                   interlocutor ? formatTimezone(interlocutor.timezone) : 
+                  {profileLoading ? "Загрузка..." :
+                   interlocutor ? formatTimezone(interlocutor.timezone) :
                    "Не указано"}
                 </div>
               </div>
@@ -310,18 +324,18 @@ const ChatPage: React.FC = () => {
             <div className="no-messages">Сообщений пока нет!</div>
           ) : (
             <div className="message-group">
-              {messages.map((message) => {
+              {[...messages].reverse().map((message) => {
                 // Determine if the current user is the sender (we need to check if the sender is NOT the user we're chatting with)
                 const isCurrentUserSender = message.sender.id !== parseInt(userId || "0");
 
                 return (
-                  <div 
-                    key={message.id} 
+                  <div
+                    key={message.id}
                     className={`message-column ${isCurrentUserSender ? 'right' : 'left'}`}
                   >
                     <div className="message-wrapper">
                       <div className="sender-name">
-                        {isCurrentUserSender ? 'Вы' : message.sender.firstName || 'User'}
+                        {isCurrentUserSender ? 'Вы' : message.sender.username || 'User'}
                       </div>
                       <div className="message">
                         <div className="message-text">{message.text}</div>

@@ -26,7 +26,7 @@ const LandingPage: React.FC = () => {
             </div>
             <div className="column">
               <div className="section-text-container right-aligned">
-                <h2 className="section-title">Объединяем по вайбу</h2>
+                <h2 className="land-section-title">Объединяем по вайбу</h2>
                 <p className="section-description">
                   Подбираем идеальные совпадения репетиторов и учеников для эффективного и интересного обучения.
                 </p>
@@ -34,7 +34,7 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
         </div>
-        <h2 className="section-title left-aligned">Ищем по интересам</h2>
+        <h2 className="land-section-title left-aligned">Ищем по интересам</h2>
         <div className="section-container interests-section">
           <div className="two-column-section">
             <div className="column">
@@ -47,7 +47,7 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
         </div>
-        <h2 className="section-title right-aligned">Знаем, что наш подход работает</h2>
+        <h2 className="land-section-title right-aligned">Знаем, что наш подход работает</h2>
         <div className="approach-section">
           <div className="two-column-section">
             <div className="column">
@@ -59,7 +59,7 @@ const LandingPage: React.FC = () => {
               </p>
             </div>
           </div>
-          <h2 className="section-title left-aligned testimonials-heading">Отзывы</h2>
+          <h2 className="land-section-title left-aligned testimonials-heading">Отзывы</h2>
         </div>
       </div>
       <div className="testimonials-section">

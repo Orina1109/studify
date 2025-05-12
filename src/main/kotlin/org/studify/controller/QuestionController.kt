@@ -388,25 +388,13 @@ class QuestionController(
         val pickedStudents = pickedTeacherRepository.findByTeacherQuestionUserAndPicked(user, true)
 
         // Map to response
-        val studentResponses = pickedStudents.map { pickedTeacher ->
+        val studentResponses = pickedStudents.mapNotNull { pickedTeacher ->
             val student = pickedTeacher.student
-            val fullName = if (student.firstName != null && student.lastName != null) {
-                "${student.firstName} ${student.lastName}"
-            } else if (student.firstName != null) {
-                student.firstName
-            } else if (student.lastName != null) {
-                student.lastName
-            } else {
-                student.username
-            }
+            // Get the student question for this user
+            val studentQuestion = studentQuestionRepository.findByUser(student) ?: return@mapNotNull null
 
-            mapOf(
-                "id" to student.id,
-                "name" to fullName,
-                "email" to student.email,
-                "username" to student.username,
-                "createdAt" to pickedTeacher.createdAt.format(dateFormatter)
-            )
+            // Map to response using the existing helper method
+            mapToStudentQuestionResponse(studentQuestion)
         }
 
         return ResponseEntity.ok(studentResponses)
