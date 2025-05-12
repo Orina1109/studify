@@ -5,13 +5,13 @@ const PickedTeachersPage: React.FC = () => {
   return (
     <div className="picked-teachers-container">
       <div className="content-wrapper">
-        <div className="header-section">
+        <div className="picked-header-section">
           <div className="title-column">
-            <div className="main-title">Find my tutor</div>
+            <div className="picked-main-title">Find my tutor</div>
           </div>
           <div className="buttons-column">
-            <div className="buttons-container">
-              <div className="button-column">
+            <div className="picked-buttons-container">
+              <div className="picked-button-column">
                 <div className="nav-button back-button">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/c97029a100caec3b0a0af85d26f148e9ded7e29d?placeholderIfAbsent=true"
@@ -20,7 +20,7 @@ const PickedTeachersPage: React.FC = () => {
                   />
                 </div>
               </div>
-              <div className="button-column">
+              <div className="picked-button-column">
                 <div className="nav-button contact-button">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b7145d00642cc2b88cafb90c53b920f225c12da?placeholderIfAbsent=true"
@@ -29,7 +29,7 @@ const PickedTeachersPage: React.FC = () => {
                   />
                 </div>
               </div>
-              <div className="button-column">
+              <div className="picked-button-column">
                 <div className="nav-button next-button">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/da85ec3f5c371762db65cee6a272c01b19efba18?placeholderIfAbsent=true"
@@ -57,13 +57,13 @@ const PickedTeachersPage: React.FC = () => {
               <div className="location-container">
                 <div className="location-tag">Москва (GMT+3)</div>
               </div>
-            </div>
-            <div className="contact-button-container">
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b7145d00642cc2b88cafb90c53b920f225c12da?placeholderIfAbsent=true"
-                className="contact-icon"
-                alt="Contact"
-              />
+              <div className="contact-button-container">
+                <img
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b7145d00642cc2b88cafb90c53b920f225c12da?placeholderIfAbsent=true"
+                    className="contact-icon"
+                    alt="Contact"
+                />
+              </div>
             </div>
           </div>
           <div className="teacher-item">
@@ -80,13 +80,13 @@ const PickedTeachersPage: React.FC = () => {
               <div className="location-container">
                 <div className="location-tag">Москва (GMT+3)</div>
               </div>
-            </div>
-            <div className="contact-button-container">
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b7145d00642cc2b88cafb90c53b920f225c12da?placeholderIfAbsent=true"
-                className="contact-icon"
-                alt="Contact"
-              />
+              <div className="contact-button-container">
+                <img
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b7145d00642cc2b88cafb90c53b920f225c12da?placeholderIfAbsent=true"
+                    className="contact-icon"
+                    alt="Contact"
+                />
+              </div>
             </div>
           </div>
           <div className="teacher-item">
@@ -103,26 +103,14 @@ const PickedTeachersPage: React.FC = () => {
               <div className="location-container">
                 <div className="location-tag">Екб (GMT+5)</div>
               </div>
+              <div className="contact-button-container">
+                <img
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b7145d00642cc2b88cafb90c53b920f225c12da?placeholderIfAbsent=true"
+                    className="contact-icon"
+                    alt="Contact"
+                />
+              </div>
             </div>
-            <div className="contact-button-container">
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b7145d00642cc2b88cafb90c53b920f225c12da?placeholderIfAbsent=true"
-                className="contact-icon"
-                alt="Contact"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="footer">
-          <div className="footer-left">
-            <div className="footer-year">2025</div>
-            <div className="footer-copyright">©FindMyTutor</div>
-            <div className="footer-about">О нас</div>
-          </div>
-          <div className="footer-right">
-            <div className="footer-email">FindMy@Tutor.com</div>
-            <div className="footer-privacy">Обработка персональных данных</div>
-            <div className="footer-policy">Политика конфиденциальности</div>
           </div>
         </div>
       </div>
