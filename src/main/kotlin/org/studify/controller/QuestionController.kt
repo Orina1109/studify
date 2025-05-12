@@ -343,6 +343,49 @@ class QuestionController(
         return ResponseEntity.ok(teacherLookupResponses)
     }
 
+    @GetMapping("/get_picked_students")
+    suspend fun getPickedStudents(): ResponseEntity<Any> {
+        val authentication = SecurityContextHolder.getContext().authentication
+        val username = authentication.name
+        val user = userService.getUserByUsername(username) ?: return ResponseEntity
+            .status(HttpStatus.UNAUTHORIZED)
+            .body(ErrorResponse("User not found", "USER_NOT_FOUND"))
+
+        // Check if user is a teacher
+        if (user.role != UserRole.TEACHER) {
+            return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(ErrorResponse("Only teachers can get picked students", "FORBIDDEN_OPERATION"))
+        }
+
+        // Get picked students for this teacher
+        val pickedStudents = pickedTeacherRepository.findByTeacherQuestionUserAndPicked(user, true)
+
+        // Map to response
+        val studentResponses = pickedStudents.map { pickedTeacher ->
+            val student = pickedTeacher.student
+            val fullName = if (student.firstName != null && student.lastName != null) {
+                "${student.firstName} ${student.lastName}"
+            } else if (student.firstName != null) {
+                student.firstName
+            } else if (student.lastName != null) {
+                student.lastName
+            } else {
+                student.username
+            }
+
+            mapOf(
+                "id" to student.id,
+                "name" to fullName,
+                "email" to student.email,
+                "username" to student.username,
+                "createdAt" to pickedTeacher.createdAt.format(dateFormatter)
+            )
+        }
+
+        return ResponseEntity.ok(studentResponses)
+    }
+
     private fun calculateCompatibility(student: StudentQuestion, teacher: TeacherQuestion): Double {
         var totalDifference = 0.0
         val weights = mapOf(

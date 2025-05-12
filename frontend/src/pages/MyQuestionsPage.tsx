@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./MyQuestionsPage.css";
 import api from "../services/api";
 
+const defaultTutorProfileImage =
+    "https://media.istockphoto.com/id/2041572395/ru/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F/%D0%BF%D1%83%D1%81%D1%82%D0%BE%D0%B9-%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%D0%B7%D0%B0%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8F-%D1%84%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%B8-%D0%B0%D0%B2%D0%B0%D1%82%D0%B0%D1%80%D0%B0-%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F-%D0%B8%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F.jpg?s=612x612&w=0&k=20&c=qJ0J1oSxpRFi5Kb-sYR0yYFc4g4_GQD7jwq4Pep01BU=";
+
+
 // Define interfaces for the response data
 interface StudentQuestionData {
   id: string;
@@ -112,7 +116,7 @@ const MyQuestionsPage: React.FC = () => {
       case "THIRTY_MINUTES": return "30 минут";
       case "FORTY_FIVE_MINUTES": return "45 минут";
       case "NINETY_MINUTES": return "90 минут";
-      case "ANY": return "Неважно";
+      case "ANY": return "любое время";
       default: return value;
     }
   };
@@ -122,16 +126,16 @@ const MyQuestionsPage: React.FC = () => {
       case "MORNING": return "Утро (6:00 – 10:00)";
       case "DAY": return "День (10:00 – 16:00)";
       case "EVENING": return "Вечер (16:00 – 22:00)";
-      case "ANY": return "Неважно";
+      case "ANY": return "Любое время";
       default: return value;
     }
   };
 
   const mapBudget = (value: string): string => {
     switch (value) {
-      case "LOW": return "До 1000 руб.";
-      case "MEDIUM": return "1000–2000 руб.";
-      case "HIGH": return "Более 2000 руб.";
+      case "LOW": return "До 1000 руб";
+      case "MEDIUM": return "1000–2000 руб";
+      case "HIGH": return "От 2000 руб";
       default: return value;
     }
   };
@@ -352,7 +356,7 @@ const MyQuestionsPage: React.FC = () => {
                     />
                   ) : (
                     <img
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/517c02fdf31aa69c6bc9268f46ca3b723de21110?placeholderIfAbsent=true"
+                      src={defaultTutorProfileImage}
                       className="profile-image"
                       alt="Profile"
                     />
@@ -493,7 +497,7 @@ const MyQuestionsPage: React.FC = () => {
                     />
                   ) : (
                     <img
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/517c02fdf31aa69c6bc9268f46ca3b723de21110?placeholderIfAbsent=true"
+                      src={defaultTutorProfileImage}
                       className="profile-image"
                       alt="Profile"
                     />

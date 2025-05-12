@@ -12,4 +12,5 @@ interface PickedTeacherRepository : JpaRepository<PickedTeacher, Long> {
     fun findByStudentAndPicked(student: User, picked: Boolean): List<PickedTeacher>
     fun findByStudentAndTeacherQuestion(student: User, teacherQuestion: TeacherQuestion): PickedTeacher?
     fun existsByStudentAndTeacherQuestion(student: User, teacherQuestion: TeacherQuestion): Boolean
+    fun findByTeacherQuestionUserAndPicked(teacher: User, picked: Boolean): List<PickedTeacher>
 }

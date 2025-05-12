@@ -276,3 +276,80 @@
   flex-shrink: 1;
   width: 6.25rem;
 }
+
+/* Student list styles */
+.student-list {
+  display: flex;
+  margin-top: 5.3125rem;
+  width: 100%;
+  max-width: 96rem;
+  flex-direction: column;
+  gap: 2.6875rem;
+}
+
+.student-item {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+  gap: 2.5rem 4.25rem;
+  flex-wrap: wrap;
+}
+
+.student-info {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 2.5rem 3.75rem;
+  font-family:
+    ALS Hauss,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 2.5rem;
+  color: rgba(169, 81, 165, 1);
+  font-weight: 350;
+  text-align: center;
+  justify-content: flex-start;
+}
+
+.student-name {
+  border-radius: 0;
+  align-self: stretch;
+  margin: auto 0;
+  font-size: 2.4375rem;
+  font-weight: 500;
+  white-space: nowrap;
+  line-height: 1;
+  width: auto;
+}
+
+.student-email, .student-username, .student-date {
+  padding: 0.625rem;
+  align-self: stretch;
+  border-radius: 0.9375rem;
+  border: 0.125rem solid rgba(169, 81, 165, 1);
+  min-width: 15rem;
+  margin: auto 0;
+  gap: 0.625rem;
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6875rem;
+}
+
+.no-students-message {
+  color: rgba(169, 81, 165, 1);
+  font-size: 1.8rem;
+  font-family:
+    ALS Hauss,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 2rem;
+}

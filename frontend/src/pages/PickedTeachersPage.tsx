@@ -13,30 +13,71 @@ interface TeacherData {
   lessonDuration: string;
 }
 
+// Define the interface for student data
+interface StudentData {
+  id: number;
+  name: string;
+  email: string;
+  username: string;
+  createdAt: string;
+}
+
+// Define user role type
+type UserRole = "STUDENT" | "TEACHER" | "ADMIN";
+
 const defaultTutorProfileImage =
     "https://media.istockphoto.com/id/2041572395/ru/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F/%D0%BF%D1%83%D1%81%D1%82%D0%BE%D0%B9-%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%D0%B7%D0%B0%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8F-%D1%84%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%B8-%D0%B0%D0%B2%D0%B0%D1%82%D0%B0%D1%80%D0%B0-%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F-%D0%B8%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F.jpg?s=612x612&w=0&k=20&c=qJ0J1oSxpRFi5Kb-sYR0yYFc4g4_GQD7jwq4Pep01BU=";
 
 const PickedTeachersPage: React.FC = () => {
   const [teachers, setTeachers] = useState<TeacherData[]>([]);
+  const [students, setStudents] = useState<StudentData[]>([]);
+  const [userRole, setUserRole] = useState<UserRole | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Fetch user profile to determine role
   useEffect(() => {
-    const fetchPickedTeachers = async () => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await api.get('/api/users/profile');
+        setUserRole(response.data.role);
+      } catch (err) {
+        console.error('Error fetching user profile:', err);
+        setError('Failed to load user profile. Please try again later.');
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  // Fetch picked teachers or students based on user role
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!userRole) return; // Wait until we have the user role
+
       try {
         setLoading(true);
-        const response = await api.get('/api/questions/get_picked');
-        setTeachers(response.data);
+
+        if (userRole === "TEACHER") {
+          // If user is a teacher, fetch students who picked this teacher
+          const response = await api.get('/api/questions/get_picked_students');
+          setStudents(response.data);
+        } else {
+          // If user is a student, fetch picked teachers (existing logic)
+          const response = await api.get('/api/questions/get_picked');
+          setTeachers(response.data);
+        }
+
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching picked teachers:', err);
-        setError('Failed to load teachers. Please try again later.');
+        console.error('Error fetching data:', err);
+        setError('Failed to load data. Please try again later.');
         setLoading(false);
       }
     };
 
-    fetchPickedTeachers();
-  }, []);
+    fetchData();
+  }, [userRole]);
 
   // Function to format lesson duration and price
   const formatPriceAndDuration = (price: number, duration: string) => {
