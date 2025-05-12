@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./PickedTeachersPage.css";
 import api from "../services/api";
 
@@ -29,11 +30,16 @@ const defaultTutorProfileImage =
     "https://media.istockphoto.com/id/2041572395/ru/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F/%D0%BF%D1%83%D1%81%D1%82%D0%BE%D0%B9-%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%D0%B7%D0%B0%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8F-%D1%84%D0%BE%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%B8-%D0%B0%D0%B2%D0%B0%D1%82%D0%B0%D1%80%D0%B0-%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F-%D0%B8%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F.jpg?s=612x612&w=0&k=20&c=qJ0J1oSxpRFi5Kb-sYR0yYFc4g4_GQD7jwq4Pep01BU=";
 
 const PickedTeachersPage: React.FC = () => {
+  const navigate = useNavigate();
   const [teachers, setTeachers] = useState<TeacherData[]>([]);
   const [students, setStudents] = useState<StudentData[]>([]);
   const [userRole, setUserRole] = useState<UserRole | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  const handleContactClick = (teacherId: number) => {
+    navigate(`/chat/${teacherId}`);
+  };
 
   // Fetch user profile to determine role
   useEffect(() => {
@@ -152,7 +158,16 @@ const PickedTeachersPage: React.FC = () => {
                 </div>
               </div>
               <div className="picked-button-column">
-                <div className="nav-button contact-button">
+                <div 
+                  className="nav-button contact-button"
+                  onClick={() => {
+                    if (teachers.length > 0) {
+                      handleContactClick(teachers[0].userId);
+                    } else {
+                      alert("No teachers available to contact");
+                    }
+                  }}
+                >
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b7145d00642cc2b88cafb90c53b920f225c12da?placeholderIfAbsent=true"
                     className="button-icon"
@@ -199,7 +214,10 @@ const PickedTeachersPage: React.FC = () => {
                 <div className="location-container">
                   <div className="location-tag">{formatTimezone(teacher.timezone)}</div>
                 </div>
-                <div className="contact-button-container">
+                <div 
+                  className="contact-button-container"
+                  onClick={() => handleContactClick(teacher.userId)}
+                >
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b7145d00642cc2b88cafb90c53b920f225c12da?placeholderIfAbsent=true"
                     className="contact-icon"

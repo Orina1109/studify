@@ -10,6 +10,7 @@ import ProfilePage from './pages/ProfilePage';
 import MyQuestionsPage from './pages/MyQuestionsPage';
 import LookupPage from './pages/LookupPage';
 import PickedTeachersPage from './pages/PickedTeachersPage';
+import ChatPage from './pages/ChatPage';
 import api from './services/api';
 
 // Simple placeholder components
@@ -89,6 +90,7 @@ function App() {
         <Route path="/my-questions" element={<MyQuestionsPage />} />
         <Route path="/lookup" element={<LookupPage />} />
         <Route path="/picked-teachers" element={<PickedTeachersPage />} />
+        <Route path="/chat/:userId" element={<ChatPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

@@ -1,0 +1,549 @@
+.chat-page {
+  background-color: rgba(255, 229, 214, 1);
+  display: flex;
+  padding: 6.5rem 5rem 3.25rem;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: center;
+  font-family:
+    "ALS Hauss",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+}
+
+.chat-header {
+  width: 100%;
+  max-width: 95rem;
+}
+
+.header-content {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.header-title-column {
+  display: flex;
+  flex-direction: column;
+  width: 71%;
+}
+
+.header-title {
+  color: rgba(169, 81, 165, 1);
+  font-size: 9.375rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.header-buttons-column {
+  display: flex;
+  flex-direction: column;
+  width: 29%;
+  margin-left: 1.25rem;
+}
+
+.header-buttons {
+  display: flex;
+  margin-top: 2.3rem;
+  width: 100%;
+  gap: 1.3rem;
+}
+
+.nav-button {
+  border-radius: 5.5rem;
+  background-color: rgba(255, 229, 214, 1);
+  display: flex;
+  height: 7.375rem;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  border: none;
+  cursor: pointer;
+}
+
+.back-button {
+  padding: 0 1.125rem;
+}
+
+.home-button {
+  padding: 0 1.94rem;
+}
+
+.button-icon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  align-self: stretch;
+  margin: auto;
+}
+
+.back-button .button-icon {
+  width: 9.125rem;
+}
+
+.home-button .button-icon {
+  width: 7.44rem;
+}
+
+.teacher-profile {
+  align-self: start;
+  z-index: 10;
+  margin-top: 0.3125rem;
+  width: 100%;
+  max-width: 92.125rem;
+}
+
+.profile-info {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.profile-left {
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+}
+
+.profile-header {
+  display: flex;
+  margin-top: 1.5625rem;
+  width: 100%;
+  flex-direction: column;
+}
+
+.profile-chat-label {
+  color: rgba(169, 81, 165, 1);
+  font-size: 3.4375rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.contact-button {
+  border-radius: 5.5625rem;
+  background-color: rgba(255, 229, 214, 1);
+  display: flex;
+  margin-top: 0.625rem;
+  min-height: 7.375rem;
+  padding: 0.125rem 2.0625rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.contact-icon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 7.1875rem;
+  align-self: stretch;
+  margin: auto;
+}
+
+.teacher-name {
+  align-self: start;
+  border-radius: 0.9375rem;
+  border: 0.375rem solid rgba(169, 81, 165, 1);
+  margin-top: 0.375rem;
+  margin-left: 1.125rem;
+  min-height: 8.0625rem;
+  padding: 2.3125rem 0.625rem;
+  font-size: 3.4375rem;
+  color: rgba(169, 81, 165, 1);
+  font-weight: 900;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.profile-right {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-left: 1.25rem;
+}
+
+.teacher-photo {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.teacher-details {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
+  align-self: stretch;
+  font-size: 2.5rem;
+  color: rgba(169, 81, 165, 1);
+  text-align: center;
+}
+
+.detail-row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1.25rem;
+  justify-content: start;
+  flex-wrap: wrap;
+}
+
+.detail-row:not(:first-child) {
+  margin-top: 1.875rem;
+}
+
+.detail-label {
+  font-weight: 500;
+  align-self: stretch;
+  margin: auto 0;
+}
+
+.detail-value {
+  align-self: stretch;
+  border-radius: 0.9375rem;
+  border: 0.125rem solid rgba(169, 81, 165, 1);
+  min-width: 15rem;
+  margin: auto 0;
+  min-height: 4.0625rem;
+  font-weight: 350;
+  display: flex;
+  align-items: center;
+  padding: 0 0.9375rem;
+}
+
+.detail-row:first-child .detail-value {
+  width: 24rem;
+}
+
+.detail-row:last-child .detail-value {
+  flex-grow: 1;
+  width: 17.4375rem;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.9375rem;
+  position: relative;
+  min-height: 33.5rem;
+  width: 100%;
+  max-width: 77rem;
+  padding: 3.5rem 0.5625rem 0.5rem 1.8125rem;
+  margin-top: 1.25rem;
+}
+
+.chat-background {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.9375rem;
+}
+
+.chat-messages {
+  position: relative;
+  width: 100%;
+  max-width: 73.1875rem;
+  z-index: 1;
+}
+
+.message-group {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.message-column {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.message-column.left {
+  margin-left: 0;
+}
+
+.message-column.right {
+  margin-left: 1.25rem;
+}
+
+.message-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  font-weight: 350;
+}
+
+.message-column.left .message-wrapper {
+  margin-top: 11.375rem;
+  padding-bottom: 3.5625rem;
+}
+
+.message-column.right .message-wrapper {
+  text-align: right;
+}
+
+.sender-name {
+  color: rgba(255, 229, 214, 1);
+  z-index: 0;
+}
+
+.message {
+  position: relative;
+}
+
+.message-bubble {
+  border-radius: 0.9375rem;
+  z-index: 0;
+  max-width: 100%;
+}
+
+.teacher-message .message-bubble {
+  aspect-ratio: 3.77;
+  width: 34.4375rem;
+  align-self: end;
+}
+
+.user-message .message-bubble {
+  aspect-ratio: 2.35;
+  width: 34.4375rem;
+  align-self: end;
+}
+
+.message-text {
+  color: rgba(169, 81, 165, 1);
+  position: absolute;
+  z-index: 1;
+  width: 32.5625rem;
+  max-width: 100%;
+}
+
+.teacher-message .message-text {
+  left: 0.8125rem;
+  bottom: 1.8125rem;
+  height: 5.25rem;
+}
+
+.user-message .message-text {
+  right: 0.9375rem;
+  bottom: 2.4375rem;
+  height: 10.5rem;
+}
+
+.message-time {
+  align-self: center;
+  z-index: 10;
+  margin-top: -7.4375rem;
+  margin-left: 4.875rem;
+  padding: 0.625rem;
+  color: rgba(169, 81, 165, 1);
+  white-space: nowrap;
+}
+
+.message-input-container {
+  position: relative;
+  align-self: end;
+  display: flex;
+  margin-top: 0.9375rem;
+  align-items: stretch;
+  gap: 1.0625rem;
+  flex-wrap: wrap;
+  z-index: 1;
+}
+
+.message-input {
+  border-radius: 0.9375rem;
+  background-color: rgba(255, 229, 214, 1);
+  align-self: start;
+  width: 100%;
+  max-width: 65.9375rem;
+  height: 4.5625rem;
+  border: none;
+  padding: 0 0.9375rem;
+  font-size: 1.125rem;
+  color: rgba(169, 81, 165, 1);
+}
+
+.send-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.send-icon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 5.4375rem;
+}
+
+.chat-footer {
+  display: flex;
+  margin-top: 3.125rem;
+  width: 100%;
+  max-width: 92.1875rem;
+  align-items: stretch;
+  gap: 2.5rem 4.1875rem;
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 1);
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  display: flex;
+  align-items: stretch;
+  gap: 1.5625rem;
+  font-weight: 700;
+  flex-grow: 0;
+  flex-shrink: 1;
+}
+
+.footer-year,
+.footer-copyright {
+  flex-basis: auto;
+}
+
+.footer-about {
+  font-weight: 400;
+}
+
+.footer-right {
+  display: flex;
+  align-items: stretch;
+  gap: 2.5rem 2.9375rem;
+  font-weight: 400;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.footer-email {
+  flex-grow: 1;
+}
+
+.footer-data-processing,
+.footer-privacy {
+  text-align: center;
+  flex-basis: auto;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 991px) {
+  .chat-page {
+    padding: 6.25rem 1.25rem;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .header-title-column,
+  .header-buttons-column {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .header-title {
+    max-width: 100%;
+    margin-top: 2.5rem;
+    font-size: 2.5rem;
+  }
+
+  .header-buttons {
+    margin-top: 2.5rem;
+  }
+
+  .teacher-profile {
+    max-width: 100%;
+  }
+
+  .profile-info {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .profile-left,
+  .profile-right {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .profile-header {
+    margin-top: 2.25rem;
+  }
+
+  .profile-chat-label {
+    margin-top: 2.5rem;
+    font-size: 2.5rem;
+  }
+
+  .contact-button {
+    margin-top: 2.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .teacher-name {
+    font-size: 2.5rem;
+    margin-left: 0.625rem;
+    white-space: initial;
+  }
+
+  .teacher-photo {
+    margin-top: 0.6875rem;
+  }
+
+  .teacher-details {
+    max-width: 100%;
+    margin-top: 2.5rem;
+  }
+
+  .detail-row {
+    max-width: 100%;
+  }
+
+  .detail-row:last-child {
+    margin-right: 0.5625rem;
+  }
+
+  .chat-container {
+    max-width: 100%;
+    padding-left: 1.25rem;
+  }
+
+  .chat-messages {
+    max-width: 100%;
+  }
+
+  .message-column.left .message-wrapper,
+  .message-column.right .message-wrapper {
+    max-width: 100%;
+    margin-top: 2.5rem;
+  }
+
+  .sender-name,
+  .message-text {
+    max-width: 100%;
+  }
+
+  .message-time {
+    white-space: initial;
+  }
+
+  .chat-footer {
+    max-width: 100%;
+    margin-top: 2.5rem;
+  }
+
+  .footer-right {
+    max-width: 100%;
+  }
+}
