@@ -169,7 +169,7 @@ const ProfilePage: React.FC = () => {
       <div className="profile-dashboard">
         <div className="sidebar-menu">
           <div className="menu-item" onClick={() => navigate('/my-questions')}>Ваша анкета</div>
-          <div className="menu-item">Вы на одной волне</div>
+          <div className="menu-item" onClick={() => navigate('/picked-teachers')}>Вы на одной волне</div>
           <div className="menu-item">Архив занятий</div>
           <div className="menu-item" onClick={() => navigate('/lookup')}>Найти преподавателя</div>
           <div className="menu-item">Выход</div>
