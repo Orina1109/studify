@@ -1,5 +1,10 @@
 package org.studify.model
 
+data class ChooseResultRequest(
+    val teacherId: Long,
+    val picked: Boolean
+)
+
 data class TeacherLookupResponse(
     val id: Long?,
     val userId: Long,

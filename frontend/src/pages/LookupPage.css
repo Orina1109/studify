@@ -20,6 +20,7 @@
 }
 
 .lookup-title {
+  width: 100%;
   color: rgba(169, 81, 165, 1);
   font-size: 4.6875rem;
   font-family:
@@ -91,6 +92,15 @@
   border-bottom-right-radius: 0.9375rem;
 }
 
+.tutor-profile-description-title {
+  font-size: 1.5rem;
+}
+
+.tutor-profile-description-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.81);
+}
+
 .no-icon {
   left: 0;
 }
@@ -111,6 +121,29 @@
   height: 100%;
   object-fit: cover;
   border-radius: 0.9375rem;
+}
+
+.no-more-teachers {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: rgba(255, 229, 214, 1);
+  border-radius: 0.9375rem;
+  padding: 2rem;
+}
+
+.no-more-teachers h3 {
+  color: rgba(169, 81, 165, 1);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.no-more-teachers p {
+  color: #333;
+  font-size: 1.2rem;
+  max-width: 80%;
 }
 
 .lookup-footer {

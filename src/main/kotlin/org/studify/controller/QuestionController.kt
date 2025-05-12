@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 import org.studify.model.*
+import org.studify.repository.PickedTeacherRepository
 import org.studify.repository.StudentQuestionRepository
 import org.studify.repository.TeacherQuestionRepository
 import org.studify.service.UserService
@@ -16,7 +17,8 @@ import kotlin.math.abs
 class QuestionController(
     private val userService: UserService,
     private val teacherQuestionRepository: TeacherQuestionRepository,
-    private val studentQuestionRepository: StudentQuestionRepository
+    private val studentQuestionRepository: StudentQuestionRepository,
+    private val pickedTeacherRepository: PickedTeacherRepository
 ) {
 
     private val dateFormatter = DateTimeFormatter.ISO_DATE_TIME
@@ -210,8 +212,13 @@ class QuestionController(
         // Get all teacher questions
         val teacherQuestions = teacherQuestionRepository.findAll()
 
+        // Filter out teachers that are already picked by this student
+        val filteredTeacherQuestions = teacherQuestions.filter { teacherQuestion ->
+            !pickedTeacherRepository.existsByStudentAndTeacherQuestion(user, teacherQuestion)
+        }
+
         // Calculate compatibility scores and sort by compatibility
-        val teacherLookupResponses = teacherQuestions.map { teacherQuestion ->
+        val teacherLookupResponses = filteredTeacherQuestions.map { teacherQuestion ->
             val compatibilityScore = calculateCompatibility(studentQuestion, teacherQuestion)
             TeacherLookupResponse(
                 id = teacherQuestion.id,
@@ -240,6 +247,98 @@ class QuestionController(
                 compatibilityScore = compatibilityScore
             )
         }.sortedBy { it.compatibilityScore } // Sort by ascending difference (lower is better)
+
+        return ResponseEntity.ok(teacherLookupResponses)
+    }
+
+    @PostMapping("/choose_result")
+    suspend fun chooseResult(@RequestBody request: ChooseResultRequest): ResponseEntity<Any> {
+        val authentication = SecurityContextHolder.getContext().authentication
+        val username = authentication.name
+        val user = userService.getUserByUsername(username) ?: return ResponseEntity
+            .status(HttpStatus.UNAUTHORIZED)
+            .body(ErrorResponse("User not found", "USER_NOT_FOUND"))
+
+        // Check if user is a student
+        if (user.role != UserRole.STUDENT) {
+            return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(ErrorResponse("Only students can choose teachers", "FORBIDDEN_OPERATION"))
+        }
+
+        // Get teacher question by ID
+        val teacherQuestion = teacherQuestionRepository.findById(request.teacherId).orElse(null) ?: return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ErrorResponse("Teacher question not found", "QUESTION_NOT_FOUND"))
+
+        // Check if there's already a record for this student and teacher
+        val existingRecord = pickedTeacherRepository.findByStudentAndTeacherQuestion(user, teacherQuestion)
+
+        if (existingRecord != null) {
+            // Update existing record
+            val updatedRecord = existingRecord.copy(picked = request.picked)
+            pickedTeacherRepository.save(updatedRecord)
+        } else {
+            // Create new record
+            val pickedTeacher = PickedTeacher(
+                student = user,
+                teacherQuestion = teacherQuestion,
+                picked = request.picked
+            )
+            pickedTeacherRepository.save(pickedTeacher)
+        }
+
+        return ResponseEntity.ok(mapOf("success" to true))
+    }
+
+    @GetMapping("/get_picked")
+    suspend fun getPickedTeachers(): ResponseEntity<Any> {
+        val authentication = SecurityContextHolder.getContext().authentication
+        val username = authentication.name
+        val user = userService.getUserByUsername(username) ?: return ResponseEntity
+            .status(HttpStatus.UNAUTHORIZED)
+            .body(ErrorResponse("User not found", "USER_NOT_FOUND"))
+
+        // Check if user is a student
+        if (user.role != UserRole.STUDENT) {
+            return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(ErrorResponse("Only students can get picked teachers", "FORBIDDEN_OPERATION"))
+        }
+
+        // Get picked teachers for this student
+        val pickedTeachers = pickedTeacherRepository.findByStudentAndPicked(user, true)
+
+        // Map to response
+        val teacherLookupResponses = pickedTeachers.map { pickedTeacher ->
+            val teacherQuestion = pickedTeacher.teacherQuestion
+            TeacherLookupResponse(
+                id = teacherQuestion.id,
+                userId = teacherQuestion.user.id!!,
+                name = teacherQuestion.name,
+                age = teacherQuestion.age,
+                photoData = teacherQuestion.photoData,
+                gender = teacherQuestion.gender,
+                language = teacherQuestion.language,
+                languageLevel = teacherQuestion.languageLevel,
+                timezone = teacherQuestion.timezone,
+                teachingGoals = teacherQuestion.teachingGoals,
+                minStudentLevel = teacherQuestion.minStudentLevel,
+                maxStudentLevel = teacherQuestion.maxStudentLevel,
+                interests = teacherQuestion.interests,
+                teachingFrequency = teacherQuestion.teachingFrequency,
+                lessonDuration = teacherQuestion.lessonDuration,
+                preferredTime = teacherQuestion.preferredTime,
+                lessonPrice = teacherQuestion.lessonPrice,
+                teachingStyle = teacherQuestion.teachingStyle,
+                feedbackStyle = teacherQuestion.feedbackStyle,
+                teachingMethod = teacherQuestion.teachingMethod,
+                explanationStyle = teacherQuestion.explanationStyle,
+                homeworkApproach = teacherQuestion.homeworkApproach,
+                createdAt = teacherQuestion.createdAt.format(dateFormatter),
+                compatibilityScore = 0.0 // Not relevant for picked teachers
+            )
+        }
 
         return ResponseEntity.ok(teacherLookupResponses)
     }
